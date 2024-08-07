@@ -95,8 +95,12 @@
     <script>
         const users = [
             { username: 'Caro', password: 'Caro123', homepage: 'Home.html' },
-            { username: 'user', password: 'user', homepage: 'Home.html' },
-            { username: 'user1', password: 'user1', homepage: 'Home.html' }
+            { username: 'RoseFlores', password: 'Christmas#2024', homepage: 'Home.html' },
+            { username: 'ErickJimenez', password: 'Summer#2024', homepage: 'Home.html' },
+            { username: 'JairoReyes', password: 'Winter#2024', homepage: 'Home.html' },
+            { username: 'ErwinArauz', password: 'Apocalypse#2024', homepage: 'Home.html' },
+            { username: 'LukanaJustin', password: 'Spring#2024', homepage: 'Home.html' },
+            { username: 'CR_Agent', password: 'EyeCare#2024', homepage: 'Agents.html' }  
         ];
 
         document.getElementById('login-form').addEventListener('submit', function(event) {
@@ -107,6 +111,7 @@
             const authenticatedUser = users.find(user => user.username === username && user.password === password);
 
             if (authenticatedUser) {
+                sessionStorage.setItem('loggedIn', 'true'); // Store login status
                 window.location.href = authenticatedUser.homepage;
             } else {
                 alert('Invalid username or password');
@@ -115,3 +120,4 @@
     </script>
 </body>
 </html>
+

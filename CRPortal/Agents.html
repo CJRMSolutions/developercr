@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caro Rocha's Portfolio</title>
-    <style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Customer Retention Home</title>
+        <link rel="icon" href="Stan.ico" type="image/x-icon">
+        <style>
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -175,6 +176,11 @@
     </style>
 </head>
 <body>
+    <script>
+        if (!sessionStorage.getItem('loggedIn')) {
+            window.location.href = 'index.html'; // Redirect to login page if not logged in
+        }
+    </script>
     <header>
         <div class="logo">
             <img src="NOLogo.png" alt="Logo">
@@ -210,7 +216,3 @@
     </footer>
 </body>
 </html>
-
-
-
-

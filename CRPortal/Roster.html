@@ -5,131 +5,173 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roster</title>
     <link rel="icon" href="Stan.ico" type="image/x-icon">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        header .logo img {
-            width: 70px;
-            height: 35px;
-        }
-        nav {
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
-        header nav a {
-            margin-left: 20px;
-            color: #333;
-            text-decoration: none;
-            font-weight: bold;
-            position: relative;
-        }
-        header nav a:hover {
-            color: #f05454;
-        }
-        .menu-toggle {
-            display: none;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        .menu-content {
-            display: flex;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            z-index: 1;
-            flex-direction: column;
-        }
-        .dropdown-content a {
-            padding: 10px;
-            color: #333;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-        }
-        .dropdown-content a:hover {
-            background-color: #f4f4f9;
-        }
-        .menu-content .dropdown:hover .dropdown-content {
-            display: flex;
-        }
-        @media (max-width: 768px) {
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contact Center Business Review</title>
+        <link rel="icon" href="Stan.ico" type="image/x-icon">
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                background-color: #f4f4f9;
+                color: #333;
+            }
+            .no-scroll {
+                overflow: hidden;
+            }
             header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
                 padding: 20px 40px;
+                background-color: #fff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                z-index: 2;
+                position: relative;
+            }
+            header .logo img {
+                width: 70px;
+                height: 35px;
+            }
+            nav {
+                display: flex;
+                align-items: center;
+                position: relative;
+            }
+            header nav a {
+                margin-left: 20px;
+                color: #333;
+                text-decoration: none;
+                font-weight: bold;
+                position: relative;
+            }
+            header nav a:hover {
+                color: #f05454;
             }
             .menu-toggle {
-                display: block;
+                display: none;
+                font-size: 24px;
+                cursor: pointer;
             }
             .menu-content {
-                display: none;
-                position: absolute;
-                top: 60px; 
-                right: 0;
-                background-color: #fff;
-                flex-direction: column;
-                width: 100%;
-                text-align: center;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-            .menu-content a {
-                margin: 10px 0;
-                padding: 10px;
-                border-bottom: 1px solid #f4f4f9;
-            }
-            .menu-content a:last-child {
-                border-bottom: none;
-            }
-            .menu-content.show {
                 display: flex;
             }
             .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #fff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                z-index: 1;
+                flex-direction: column;
+            }
+            .dropdown-content a {
+                padding: 10px;
+                color: #333;
+                text-decoration: none;
+                display: block;
+                text-align: left;
+            }
+            .dropdown-content a:hover {
+                background-color: #f4f4f9;
+            }
+            .menu-content .dropdown:hover .dropdown-content {
+                display: flex;
+            }
+            @media (max-width: 768px) {
+                header {
+                    padding: 20px 40px;
+                }
+                .menu-toggle {
+                    display: block;
+                }
+                .menu-content {
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(255, 255, 255, 0.9);
+                    flex-direction: column;
+                    text-align: left;
+                    padding-top: 60px;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    overflow-y: auto;
+                    z-index: 3;
+                }
+                .menu-content a {
+                    padding: 15px;
+                    border-bottom: 1px solid #f4f4f9;
+                    width: 100%;
+                }
+                .menu-content a:last-child {
+                    border-bottom: none;
+                }
+                .menu-content.show {
+                    display: flex;
+                }
+                .dropdown-content {
+                    position: relative;
+                    width: 100%;
+                    box-shadow: none;
+                    display: none;
+                }
+                .dropdown-content.show {
+                    display: flex;
+                    flex-direction: column;
+                }
+                .dropdown-toggle {
+                    cursor: pointer;
+                }
+                .collapse-button {
+                    display: none;
+                    margin-left: auto;
+                    padding: 10px;
+                    cursor: pointer;
+                    font-size: 16px;
+                    color: #f05454;
+                }
+                .collapse-button.show {
+                    display: block;
+                }
+            }
+            @media (max-width: 480px) {
+                header {
+                    padding: 20px 20px;
+                }
+                .menu-content {
+                    padding-top: 60px;
+                }
+                .dropdown-content {
+                    width: 100%;
+                }
+            }
+            .iframe-container {
                 position: relative;
+                overflow: hidden;
+                width: calc(100% - 10px); 
+                margin: 0 5px; 
+                padding-top: 56.25%; 
             }
-        }
-        @media (max-width: 480px) {
-            header {
-                padding: 20px 20px;
-            }
-            .menu-content {
+            .iframe-container iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
                 width: 100%;
-                right: 0;
+                height: 100%;
+                border: 0;
             }
-        }
-        .iframe-container {
-            position: relative;
-            overflow: hidden;
-            width: calc(100% - 10px); /* Full width minus the left and right padding */
-            margin: 0 5px; /* 5px padding on left and right */
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
-        }
-        .iframe-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-    </style>
+        </style>
 </head>
 <body>
+    <script>
+        if (!sessionStorage.getItem('loggedIn')) {
+            window.location.href = 'index.html'; // Redirect to login page if not logged in
+        }
+    </script>
     <header>
         <div class="logo">
             <img src="NO_Image.png" alt="Logo">

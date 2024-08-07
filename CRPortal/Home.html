@@ -14,6 +14,9 @@
             background-color: #f4f4f9;
             color: #333;
         }
+        .no-scroll {
+            overflow: hidden;
+        }
         header {
             display: flex;
             justify-content: space-between;
@@ -21,6 +24,8 @@
             padding: 20px 40px;
             background-color: #fff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            position: relative;
         }
         header .logo img {
             width: 70px;
@@ -79,19 +84,23 @@
             }
             .menu-content {
                 display: none;
-                position: absolute;
-                top: 60px;
-                right: 0;
-                background-color: #fff;
-                flex-direction: column;
+                position: fixed;
+                top: 0;
+                left: 0;
                 width: 100%;
-                text-align: center;
+                height: 100%;
+                background-color: rgba(255, 255, 255, 0.9);
+                flex-direction: column;
+                text-align: left;
+                padding-top: 60px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                overflow-y: auto;
+                z-index: 3;
             }
             .menu-content a {
-                margin: 10px 0;
-                padding: 10px;
+                padding: 15px;
                 border-bottom: 1px solid #f4f4f9;
+                width: 100%;
             }
             .menu-content a:last-child {
                 border-bottom: none;
@@ -101,6 +110,27 @@
             }
             .dropdown-content {
                 position: relative;
+                width: 100%;
+                box-shadow: none;
+                display: none;
+            }
+            .dropdown-content.show {
+                display: flex;
+                flex-direction: column;
+            }
+            .dropdown-toggle {
+                cursor: pointer;
+            }
+            .collapse-button {
+                display: none;
+                margin-left: auto;
+                padding: 10px;
+                cursor: pointer;
+                font-size: 16px;
+                color: #f05454;
+            }
+            .collapse-button.show {
+                display: block;
             }
         }
         @media (max-width: 480px) {
@@ -108,8 +138,10 @@
                 padding: 20px 20px;
             }
             .menu-content {
+                padding-top: 60px;
+            }
+            .dropdown-content {
                 width: 100%;
-                right: 0;
             }
         }
         .hero {
@@ -359,6 +391,11 @@
 </head>
 
 <body>
+    <script>
+        if (!sessionStorage.getItem('loggedIn')) {
+            window.location.href = 'index.html';
+        }
+    </script>
     <header>
         <div class="logo">
             <img src="NO_Image.png" alt="Logo">
@@ -368,7 +405,8 @@
             <div class="menu-content" id="menu-content">
                 <a href="Home.html">Home</a>
                 <div class="dropdown">
-                    <a href="#experience">Administrative</a>
+                    <a href="#experience" class="dropdown-toggle">Administrative</a>
+                    <div class="collapse-button" id="collapse-admin">&#9650;</div>
                     <div class="dropdown-content">
                         <a href="Attendance.html">Attendance</a>
                         <a href="Performance Bonus copy.html">Performance Bonus</a>
@@ -376,7 +414,8 @@
                     </div>
                 </div>
                 <div class="dropdown">
-                    <a href="#experience">Customer Service</a>
+                    <a href="#experience" class="dropdown-toggle">Customer Service</a>
+                    <div class="collapse-button" id="collapse-customer">&#9650;</div>
                     <div class="dropdown-content">
                         <a href="CRDailyPerformance.html">Hourly Performance</a>
                         <a href="CCBusinessReview.html">CC Business Review</a>
@@ -387,20 +426,23 @@
                         <a href="CSResolution.html">Customer Resolution</a>
                         <a href="CSResolution Corporate.html">Customer Resolution - Corporate</a>
                         <a href="CSResolution Franchise.html">Customer Resolution - Franchise</a>
+                        <a href="Forecast.html">Forecast</a>
                     </div>
                 </div>
                 <div class="dropdown">
                     <a href="https://nowoptics.sharepoint.com/sites/CustomerRetention">QA Site</a>
                 </div>
                 <div class="dropdown">
-                    <a href="#experience">Support Team</a>
+                    <a href="#experience" class="dropdown-toggle">Support Team</a>
+                    <div class="collapse-button" id="collapse-support">&#9650;</div>
                     <div class="dropdown-content">
                         <a href="STDashboard.html">Support Team Dashboard</a>
                         <a href="SocialKeyWords.html">GMB Reviews Keywords</a>
                     </div>
                 </div>
                 <div class="dropdown">
-                    <a href="#contact">Order Status</a>
+                    <a href="#contact" class="dropdown-toggle">Order Status</a>
+                    <div class="collapse-button" id="collapse-order">&#9650;</div>
                     <div class="dropdown-content">
                         <a href="OrderStatus.html">Orders Dashboard</a>
                         <a href="HaltomCity.html">Haltom City</a>
@@ -504,8 +546,6 @@
         </div>
     </section>
 
-
-
     <footer>
         <p>&copy; 2024 Customer Retention Portal</p>
     </footer>
@@ -514,6 +554,28 @@
         document.getElementById('menu-toggle').addEventListener('click', function () {
             var menuContent = document.getElementById('menu-content');
             menuContent.classList.toggle('show');
+            document.body.classList.toggle('no-scroll');
+        });
+
+        const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', function (e) {
+                e.preventDefault();
+                const dropdownContent = this.nextElementSibling.nextElementSibling;
+                dropdownContent.classList.toggle('show');
+                const collapseButton = this.nextElementSibling;
+                collapseButton.classList.toggle('show');
+            });
+        });
+
+        const collapseButtons = document.querySelectorAll('.collapse-button');
+        collapseButtons.forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                const dropdownContent = this.nextElementSibling;
+                dropdownContent.classList.remove('show');
+                this.classList.remove('show');
+            });
         });
 
         const carousel = document.getElementById('carousel');
@@ -544,8 +606,3 @@
 </body>
 
 </html>
-
-
-
-
-
