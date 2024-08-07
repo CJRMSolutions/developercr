@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu de Restaurante - Restaurante</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #155263;
+            color: white;
+            padding: 10px;
+        }
+        .welcome {
+            margin-left: 10px;
+        }
+        .sign-out {
+            margin-right: 10px;
+            padding: 5px 10px;
+            background-color: #ff6f3c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .info {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #ff9a3c;
+            border-bottom: 2px solid #ff6f3c;
+        }
+        .logo {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 60px;
+            margin-right: 10px;
+        }
+        .details {
+            flex: 3;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .details p {
+            margin: 0 5px;
+            display: flex;
+            align-items: center;
+            color: #fff;
+        }
+        .details i {
+            margin-right: 8px;
+        }
+        .content {
+            display: flex;
+            flex-wrap: nowrap;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        .restaurant-tables {
+            display: flex;
+            gap: 15px;
+        }
+        .table {
+            flex: 0 0 auto;
+            background-color: #d3d3d3;
+            border: 2px solid #ff6f3c;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .table img {
+            width: 100%;
+            max-width: 100px;
+        }
+        .add-button, .bill-button {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .bill-button {
+            background-color: #ff6f3c;
+        }
+        .add-button:hover {
+            background-color: #45a049;
+        }
+        .bill-button:hover {
+            background-color: #e65100;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 5px 10px;
+            color: white;
+            border-radius: 5px;
+            width: 100px;
+            text-align: center;
+        }
+        .open {
+            background-color: #4CAF50;
+        }
+        .occupied {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="welcome">
+            Welcome, User! – <span id="currentDateTime"></span>
+        </div>
+        <button class="sign-out">Sign-Out</button>
+    </div>
+    <div class="info">
+        <div class="logo">
+            <img src="LaFinquita.jpeg" alt="Logo">
+        </div>
+        <div class="details">
+            <p><i class="fas fa-map-marker-alt"></i> KM 10.5 Carretera Masaya</p>
+            <p><i class="fab fa-whatsapp"></i> 2345-9865</p>
+            <p><i class="fab fa-instagram"></i> miprimerrestarante.ni</p>
+        </div>
+    </div>
+    <div class="content">
+        <div class="restaurant-tables" id="restaurantTables">
+            <div class="table" id="table1">
+                <img src="Icono Mesa.jpg" alt="Mesa 1">
+                <button class="add-button" onclick="redirectToTable(1)">Agregar a la orden</button>
+                <button class="bill-button" onclick="showBill(1)">Pedir cuenta</button>
+                <div class="status open" id="status1">Abierta</div>
+            </div>
+            <div class="table" id="table2">
+                <img src="Icono Mesa.jpg" alt="Mesa 2">
+                <button class="add-button" onclick="redirectToTable(2)">Agregar a la orden</button>
+                <button class="bill-button" onclick="showBill(2)">Pedir cuenta</button>
+                <div class="status open" id="status2">Abierta</div>
+            </div>
+            <div class="table" id="table3">
+                <img src="Icono Mesa.jpg" alt="Mesa 3">
+                <button class="add-button" onclick="redirectToTable(3)">Agregar a la orden</button>
+                <button class="bill-button" onclick="showBill(3)">Pedir cuenta</button>
+                <div class="status open" id="status3">Abierta</div>
+            </div>
+            <div class="table" id="table4">
+                <img src="Icono Mesa.jpg" alt="Mesa 4">
+                <button class="add-button" onclick="redirectToTable(4)">Agregar a la orden</button>
+                <button class="bill-button" onclick="showBill(4)">Pedir cuenta</button>
+                <div class="status open" id="status4">Abierta</div>
+            </div>
+            <div class="table" id="table5">
+                <img src="Icono Mesa.jpg" alt="Mesa 5">
+                <button class="add-button" onclick="redirectToTable(5)">Agregar a la orden</button>
+                <button class="bill-button" onclick="showBill(5)">Pedir cuenta</button>
+                <div class="status open" id="status5">Abierta</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('currentDateTime').innerText = new Date().toLocaleString();
+
+        const menus = {
+            Desayunos: [
+                { name: 'Huevos con tocino', price: 5.00 },
+                { name: 'Pancakes', price: 3.50 },
+                { name: 'Avena', price: 2.50 }
+            ],
+            Almuerzos: [
+                { name: 'Hamburguesa', price: 8.00 },
+                { name: 'Ensalada César', price: 7.00 },
+                { name: 'Sándwich de Pollo', price: 6.50 }
+            ],
+            Cenas: [
+                { name: 'Filete de Res', price: 12.00 },
+                { name: 'Pasta Alfredo', price: 10.00 },
+                { name: 'Pizza', price: 9.00 }
+            ],
+            Extras: [
+                { name: 'Papas Fritas', price: 2.00 },
+                { name: 'Aros de Cebolla', price: 2.50 },
+                { name: 'Nachos', price: 3.00 }
+            ],
+            Bebidas: [
+                { name: 'Café', price: 1.50 },
+                { name: 'Jugo de Naranja', price: 2.00 },
+                { name: 'Refresco', price: 1.75 }
+            ]
+        };
+
+        let tableOrders = JSON.parse(localStorage.getItem('tableOrders')) || {};
+
+        function redirectToTable(tableNumber) {
+            window.location.href = `mesa_${tableNumber}.html`;
+        }
+
+        function showBill(tableNumber) {
+            if (!tableOrders[tableNumber]) {
+                tableOrders[tableNumber] = [];
+            }
+            localStorage.setItem('tableOrders', JSON.stringify(tableOrders));
+            window.location.href = `mesa_${tableNumber}.html?bill=true`;
+        }
+
+        function addToOrder(tableNumber, name, price) {
+            if (!tableOrders[tableNumber]) {
+                tableOrders[tableNumber] = [];
+                document.getElementById(`status${tableNumber}`).className = 'status occupied';
+                document.getElementById(`status${tableNumber}`).innerText = 'Ocupada';
+            }
+            tableOrders[tableNumber].push({ name, price });
+            localStorage.setItem('tableOrders', JSON.stringify(tableOrders));
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

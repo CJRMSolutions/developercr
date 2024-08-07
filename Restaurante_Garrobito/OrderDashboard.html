@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #222831;
+            padding: 10px 20px;
+            border-bottom: 2px solid #393e46;
+            color: #f2f2f2;
+        }
+        .top-bar .left {
+            display: flex;
+            align-items: center;
+        }
+        .top-bar .right {
+            display: flex;
+            align-items: center;
+        }
+        .welcome-text {
+            font-size: 16px;
+            margin-right: 20px;
+        }
+        .nav-buttons {
+            display: flex;
+        }
+        .nav-buttons button {
+            background-color: #f96d00;
+            color: #f2f2f2;
+            border: none;
+            border-radius: 5px;
+            padding: 0 20px;
+            cursor: pointer;
+            font-size: 10px;
+            margin: 0 5px;
+            transition: background-color 0.3s;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-buttons button:hover {
+            background-color: #e65c00;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #393e46;
+        }
+        .header h1 {
+            font-size: 28px;
+            margin: 0;
+            color: #222831;
+        }
+        .header img {
+            height: 50px;
+            border-radius: 8px;
+        }
+        .contact-info {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+        h2 {
+            font-size: 28px;
+            margin: 20px 0 10px;
+            color: #222831;
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="left">
+        <p class="welcome-text" id="welcomeText">Welcome, User! – </p>
+    </div>
+    <div class="right">
+        <div class="nav-buttons">
+            <button>Place an Order</button>
+            <button>Orders Dashboard</button>
+            <button>Sales Dashboard</button>
+            <button>Inventory Dashboard</button>
+            <button>Sign-Out</button>
+        </div>
+    </div>
+</div>
+
+<div class="header">
+    <div>
+        <h1>Restaurant Garrobito</h1>
+        <div class="contact-info">
+            <p>Address: 124 ST SUITE 500, AL, 423781</p>
+            <p>Phone Number: 765 2376-1231</p>
+        </div>
+    </div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Flag_of_Nicaragua.svg/2560px-Flag_of_Nicaragua.svg.png" alt="Nicaraguan Flag">
+</div>
+
+<h2>Orders Dashboard</h2>
+
+<script>
+    function updateDateTime() {
+        const welcomeText = document.getElementById('welcomeText');
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        welcomeText.textContent += now.toLocaleDateString('en-US', options);
+    }
+    updateDateTime();
+</script>
+
+</body>
+</html>
+
+

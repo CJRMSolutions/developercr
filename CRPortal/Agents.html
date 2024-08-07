@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caro Rocha's Portfolio</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 80px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header .logo img {
+            width: 70px; 
+            height: auto; 
+        }
+        header nav {
+            flex: 1;
+            text-align: right;
+        }
+        header nav a {
+            margin-left: 20px;
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        header nav a:hover {
+            color: #f05454;
+        }
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 100px 80px;
+            background-color: #f9f9f9;
+        }
+        .hero .text {
+            max-width: 50%;
+            flex: 1;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin: 0;
+        }
+        .hero h1 span {
+            color: #f05454;
+        }
+        .hero p {
+            margin: 20px 0;
+            font-size: 18px;
+        }
+        .hero .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .hero button {
+            position: relative;
+            overflow: hidden;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #f05454;
+            background-color: transparent;
+            border: 2px solid #f05454;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            flex: 1;
+            transition: color 0.4s ease-in-out, background-color 0.4s ease-in-out;
+            z-index: 1;
+        }
+        .hero button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background-color: #f05454;
+            transition: all 0.4s ease-in-out;
+            z-index: -1;
+        }
+        .hero button:hover::before {
+            left: 0;
+        }
+        .hero button:hover {
+            color: #fff;
+        }
+        .hero .image {
+            max-width: 40%;
+            flex: 1;
+            text-align: center;
+        }
+        .hero .image img {
+            width: 100%;
+            border-radius: 10px;
+            max-width: 300px;
+            height: auto;
+        }
+        .iframe-container {
+            width: 100%;
+            padding: 20px 80px;
+            box-sizing: border-box;
+        }
+        .iframe-container iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+        @media (max-width: 768px) {
+            header {
+                padding: 20px 40px;
+            }
+            .hero {
+                padding: 50px 40px;
+            }
+            .hero h1 {
+                font-size: 36px;
+            }
+            .hero p {
+                font-size: 16px;
+            }
+            .iframe-container {
+                padding: 20px 40px;
+            }
+        }
+        @media (max-width: 480px) {
+            header {
+                padding: 20px 20px;
+            }
+            .hero {
+                padding: 20px;
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero .text, .hero .image {
+                max-width: 100%;
+            }
+            .hero h1 {
+                font-size: 28px;
+            }
+            .hero p {
+                font-size: 14px;
+            }
+            .hero button {
+                width: 100%;
+                padding: 10px;
+                font-size: 14px;
+                margin: 5px 0;
+            }
+            .iframe-container {
+                padding: 20px;
+            }
+        }
+        footer {
+            background-color: #4f4e4e;
+            color: #fff;
+            height: 30px;
+            text-align: center;
+            padding: 0;
+            line-height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="NOLogo.png" alt="Logo">
+        </div>
+        <nav>
+            <a href="Agents.html">Home</a>
+            <a href="Quality.html">QA Detail</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="text">
+            <p>Welcome to the</p>
+            <h1>Customer Retention <span>Portal</span></h1>
+            <p>This is your new centralized portal to help you make eye care easy.</p>
+            <div class="buttons">
+                <button onclick="window.open('https://nowoptics.sharepoint.com/sites/CustomerRetention', '_blank')">QA Site</button>
+                <button onclick="window.open('https://pilot.stantonoptical.com/', '_blank')">IRIS</button>
+                <button onclick="window.open('https://zeuseec.com/Web/en-US/Account/Login?returnUrl=%2FWeb%2Fen-US%2FPatientBrowser', '_blank')">Zeus</button>
+                <button onclick="window.open('https://login.five9.com/', '_blank')">Five9</button>
+            </div>
+        </div>
+        <div class="image">
+            <img src="Screenshot_2024-03-14_104013-removebg-preview.png" alt="Caro Rocha">
+        </div>
+    </section> 
+    <h2 style="padding: 0 80px;">Department Performance Recap</h2>
+    <div class="iframe-container">
+        <iframe title="BPO Production Ranking" src="https://app.powerbi.com/view?r=eyJrIjoiOTk0MmFjMjQtYTI2Yi00MzI3LWEzMGQtMTFhNmRmNGE1NjAyIiwidCI6ImUwZDIxY2IzLTg2MGUtNGMwZi05YzIwLWVmMWI3NDY2YTk1YyIsImMiOjJ9&pageName=ReportSectionb56618851389e8b14f03" allowFullScreen="true"></iframe>
+    </div>
+    <footer>
+        <p>&copy; 2024 Customer Retention Portal</p>
+    </footer>
+</body>
+</html>
+
+
+
+

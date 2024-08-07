@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cocina</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #155263;
+            color: white;
+            padding: 10px;
+        }
+        .welcome {
+            margin-left: 10px;
+        }
+        .sign-out {
+            margin-right: 10px;
+            padding: 5px 10px;
+            background-color: #ff6f3c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .info {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #ff9a3c;
+            border-bottom: 2px solid #ff6f3c;
+        }
+        .logo {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 60px;
+            margin-right: 10px;
+        }
+        .details {
+            flex: 3;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .details p {
+            margin: 0 5px;
+            display: flex;
+            align-items: center;
+            color: #fff;
+        }
+        .details i {
+            margin-right: 8px;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .summary {
+            width: 80%;
+            max-width: 400px;
+            padding: 10px;
+            background-color: #ffc93c;
+            border: 2px solid #ff6f3c;
+            border-radius: 10px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        .summary h3 {
+            margin-top: 0;
+            color: #ff6f3c;
+            text-align: center;
+        }
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px solid #ccc;
+        }
+        .category {
+            font-size: 1.2em;
+            color: #ff6f3c;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .timer {
+            font-size: 1.5em;
+            color: #ff6f3c;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="welcome">
+            Welcome, Cocina! – <span id="currentDateTime"></span>
+        </div>
+        <button class="sign-out">Sign-Out</button>
+    </div>
+    <div class="info">
+        <div class="logo">
+            <img src="file-5whwSYcu1OxulfvpsMOSTIRV" alt="Logo">
+        </div>
+        <div class="details">
+            <p><i class="fas fa-map-marker-alt"></i> KM 10.5 Carretera Masaya</p>
+            <p><i class="fab fa-whatsapp"></i> 2345-9865</p>
+            <p><i class="fab fa-instagram"></i> miprimerrestarante.ni</p>
+        </div>
+    </div>
+    <div class="content">
+        <div class="summary" id="order">
+            <h3>Orden en Cocina</h3>
+            <p class="category" id="orderCategory">Categoría: <span></span></p>
+            <div id="orderItems">
+                <!-- Espacio para los artículos -->
+            </div>
+            <p class="timer" id="timer">Tiempo: 0s</p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('currentDateTime').innerText = new Date().toLocaleString();
+
+        function loadOrder() {
+            const order = JSON.parse(localStorage.getItem('order'));
+            const orderCategory = localStorage.getItem('orderCategory');
+            if (order) {
+                const orderItemsDiv = document.getElementById('orderItems');
+                orderItemsDiv.innerHTML = '';
+                order.forEach(item => {
+                    const orderItemDiv = document.createElement('div');
+                    orderItemDiv.classList.add('order-item');
+                    orderItemDiv.innerHTML = `${item.name} - $${item.price.toFixed(2)}`;
+                    orderItemsDiv.appendChild(orderItemDiv);
+                });
+                document.getElementById('orderCategory').querySelector('span').innerText = orderCategory;
+            }
+        }
+
+        function startTimer() {
+            let startTime = Date.now();
+            setInterval(() => {
+                let elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+                document.getElementById('timer').innerText = `Tiempo: ${elapsedTime}s`;
+            }, 1000);
+        }
+
+        window.onload = function() {
+            loadOrder();
+            startTimer();
+        }
+    </script>
+</body>
+</html>
+
+

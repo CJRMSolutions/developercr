@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu de Restaurante - Delivery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #155263;
+            color: white;
+            padding: 10px;
+        }
+        .welcome {
+            margin-left: 10px;
+        }
+        .sign-out {
+            margin-right: 10px;
+            padding: 5px 10px;
+            background-color: #ff6f3c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .info {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #ff9a3c;
+            border-bottom: 2px solid #ff6f3c;
+        }
+        .logo {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 60px;
+            margin-right: 10px;
+        }
+        .details {
+            flex: 3;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .details p {
+            margin: 0 5px;
+            display: flex;
+            align-items: center;
+            color: #fff;
+        }
+        .details i {
+            margin-right: 8px;
+        }
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        .categories {
+            flex: 1;
+            border-right: 2px solid #ff6f3c;
+            padding: 10px;
+            background-color: #ffc93c;
+            border: 2px solid #ff6f3c;
+            border-radius: 10px;
+            box-sizing: border-box;
+            margin-right: 10px;
+            margin-bottom: 20px;
+        }
+        .categories h3 {
+            margin-top: 0;
+            color: #ff6f3c;
+            text-align: center;
+        }
+        .categories button {
+            display: block;
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px auto;
+            border: 1px solid #ff6f3c;
+            background-color: #ff6f3c;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .categories button:hover {
+            background-color: #ff9a3c;
+        }
+        .menu {
+            flex: 2;
+            padding: 10px;
+            background-color: #d3d3d3;
+            border: 2px solid #ff6f3c;
+            border-radius: 10px;
+            box-sizing: border-box;
+            margin-right: 10px;
+            margin-bottom: 20px;
+        }
+        .summary {
+            flex: 1;
+            padding: 10px;
+            background-color: #ffc93c;
+            border: 2px solid #ff6f3c;
+            border-radius: 10px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px solid #ccc;
+        }
+        .add-button {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .add-button:hover {
+            background-color: #45a049;
+        }
+        .send-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .send-button:hover {
+            background-color: #45a049;
+        }
+        .ready-button {
+            padding: 10px 20px;
+            background-color: #ff6f3c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .ready-button:hover {
+            background-color: #e65100;
+        }
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+        }
+        .remove-button {
+            padding: 5px 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .remove-button:hover {
+            background-color: #d32f2f;
+        }
+        .dropdown, .discount-input {
+            padding: 5px;
+            width: calc(100% - 20px);
+            box-sizing: border-box;
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+        .summary p {
+            display: flex;
+            align-items: center;
+            color: #ff6f3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="welcome">
+            Welcome, User! – <span id="currentDateTime"></span>
+        </div>
+        <button class="sign-out">Sign-Out</button>
+    </div>
+    <div class="info">
+        <div class="logo">
+            <img src="file-5whwSYcu1OxulfvpsMOSTIRV" alt="Logo">
+        </div>
+        <div class="details">
+            <p><i class="fas fa-map-marker-alt"></i> KM 10.5 Carretera Masaya</p>
+            <p><i class="fab fa-whatsapp"></i> 2345-9865</p>
+            <p><i class="fab fa-instagram"></i> miprimerrestarante.ni</p>
+        </div>
+    </div>
+    <div class="content">
+        <div class="categories" id="categories">
+            <h3>Categorías</h3>
+            <button onclick="showMenu('Desayunos')">Desayunos</button>
+            <button onclick="showMenu('Almuerzos')">Almuerzos</button>
+            <button onclick="showMenu('Cenas')">Cenas</button>
+            <button onclick="showMenu('Extras')">Extras</button>
+            <button onclick="showMenu('Bebidas')">Bebidas</button>
+        </div>
+        <div class="menu" id="menu">
+            <p>Gracias por preferirnos.</p>
+        </div>
+        <div class="summary" id="summary">
+            <h3>Resumen de Orden</h3>
+            <p id="fechaHoy">Fecha: <span></span></p>
+            <div id="orderItems">
+                <!-- Espacio para los artículos seleccionados -->
+            </div>
+            <p id="subTotal">Sub-Total: $0.00</p>
+            <p>Descuento: <input type="number" id="discount" class="discount-input" value="0" oninput="updateOrderSummary()"> %</p>
+            <p>Impuestos: 15%</p>
+            <p id="total">Total: $0.00</p>
+            <input type="text" id="tableNumber" class="dropdown" placeholder="Número de Mesa" required>
+            <button class="send-button" onclick="submitOrder()">Enviar a Cocina</button>
+            <button class="ready-button" onclick="orderReady()">Orden Lista</button>
+        </div>
+    </div>
+    <script>
+        document.getElementById('currentDateTime').innerText = new Date().toLocaleString();
+        document.getElementById('fechaHoy').innerText = new Date().toLocaleDateString();
+
+        const menus = {
+            Desayunos: [
+                { name: 'Huevos con tocino', price: 5.00 },
+                { name: 'Pancakes', price: 3.50 },
+                { name: 'Avena', price: 2.50 }
+            ],
+            Almuerzos: [
+                { name: 'Hamburguesa', price: 8.00 },
+                { name: 'Ensalada César', price: 7.00 },
+                { name: 'Sándwich de Pollo', price: 6.50 }
+            ],
+            Cenas: [
+                { name: 'Filete de Res', price: 12.00 },
+                { name: 'Pasta Alfredo', price: 10.00 },
+                { name: 'Pizza', price: 9.00 }
+            ],
+            Extras: [
+                { name: 'Papas Fritas', price: 2.00 },
+                { name: 'Aros de Cebolla', price: 2.50 },
+                { name: 'Nachos', price: 3.00 }
+            ],
+            Bebidas: [
+                { name: 'Café', price: 1.50 },
+                { name: 'Jugo de Naranja', price: 2.00 },
+                { name: 'Refresco', price: 1.75 }
+            ]
+        };
+
+        let order = [];
+
+        function showMenu(category) {
+            const menuDiv = document.getElementById('menu');
+            menuDiv.innerHTML = `<h3>${category}</h3>`;
+            const menuItems = menus[category];
+            menuItems.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('menu-item');
+                itemDiv.innerHTML = `${item.name} - $${item.price.toFixed(2)} <button class="add-button" onclick="addToOrder('${item.name}', ${item.price})">Añadir a la orden</button>`;
+                menuDiv.appendChild(itemDiv);
+            });
+        }
+
+        function addToOrder(name, price) {
+            order.push({ name, price });
+            updateOrderSummary();
+        }
+
+        function updateOrderSummary() {
+            const orderItemsDiv = document.getElementById('orderItems');
+            orderItemsDiv.innerHTML = '';
+            let subTotal = 0;
+            order.forEach((item, index) => {
+                subTotal += item.price;
+                const orderItemDiv = document.createElement('div');
+                orderItemDiv.classList.add('order-item');
+                orderItemDiv.innerHTML = `${item.name} - $${item.price.toFixed(2)} <button class="remove-button" onclick="removeFromOrder(${index})">Remover</button>`;
+                orderItemsDiv.appendChild(orderItemDiv);
+            });
+            document.getElementById('subTotal').innerText = `Sub-Total: $${subTotal.toFixed(2)}`;
+            
+            const discount = parseFloat(document.getElementById('discount').value) / 100;
+            const discountedTotal = subTotal * (1 - discount);
+            const total = discountedTotal * 1.15;
+            
+            document.getElementById('total').innerText = `Total: $${total.toFixed(2)}`;
+        }
+
+        function removeFromOrder(index) {
+            order.splice(index, 1);
+            updateOrderSummary();
+        }
+
+        function submitOrder() {
+            const tableNumber = document.getElementById('tableNumber').value;
+            const currentTime = new Date().toLocaleTimeString();
+            const orderDetails = {
+                tableNumber: tableNumber,
+                time: currentTime,
+                order: order
+            };
+            localStorage.setItem('order', JSON.stringify(orderDetails));
+            alert('La orden ha sido enviada a cocina');
+
+            // Clear the order summary
+            order = [];
+            document.getElementById('tableNumber').value = '';
+            updateOrderSummary();
+        }
+
+        function orderReady() {
+            alert('La orden está lista para ser servida');
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+

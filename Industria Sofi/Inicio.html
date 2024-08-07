@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1c3919;
+            padding: 10px 20px;
+            border-bottom: 2px solid #393e46;
+            color: #f2f2f2;
+        }
+        .top-bar .left {
+            display: flex;
+            align-items: center;
+        }
+        .top-bar .right {
+            display: flex;
+            align-items: center;
+        }
+        .welcome-text {
+            font-size: 16px;
+            margin-right: 20px;
+        }
+        .nav-buttons {
+            display: flex;
+        }
+        .nav-buttons button {
+            background-color: #f96d00;
+            color: #f2f2f2;
+            border: none;
+            border-radius: 5px;
+            padding: 0 20px;
+            cursor: pointer;
+            font-size: 10px;
+            margin: 0 5px;
+            transition: background-color 0.3s;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-buttons button:hover {
+            background-color: #e65c00;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #153c24;
+        }
+        .header h1 {
+            font-size: 28px;
+            margin: 0;
+            color: #215a28;
+        }
+        .header img {
+            height: 100px; /* Ajustar la altura según sea necesario */
+            width: auto;   /* Esto mantendrá la relación de aspecto */
+            border-radius: 8px;
+        }
+        .contact-info {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+        .contact-info p {
+            display: flex;
+            align-items: center;
+        }
+        .contact-info p i {
+            margin-right: 10px;
+        }
+        h2 {
+            font-size: 28px;
+            margin: 20px 0 10px;
+            color: #247f3b;
+        }
+        .main-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap; /* Permitir envoltura para pantallas más pequeñas */
+        }
+        .main-buttons button {
+            background-color: #206e40;
+            color: #f2f2f2;
+            border: none;
+            border-radius: 5px;
+            padding: 0 20px;
+            cursor: pointer;
+            font-size: 20px; /* Tamaño de fuente aumentado */
+            margin: 10px; /* Añadir margen para un mejor espaciado */
+            transition: background-color 0.3s;
+            height: 100px; /* Altura aumentada */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1; /* Permitir que los botones crezcan */
+            flex-basis: 200px; /* Ancho mínimo para cada botón */
+        }
+        .main-buttons button:hover {
+            background-color: #c5d118;
+        }
+        .main-buttons button i {
+            margin-right: 10px;
+            font-size: 24px; /* Ajustar tamaño del icono según sea necesario */
+        }
+        /* Consultas de medios */
+        @media (max-width: 768px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .header h1 {
+                font-size: 24px;
+            }
+            .header img {
+                height: 80px;
+            }
+            h2 {
+                font-size: 24px;
+            }
+        }
+        @media (max-width: 480px) {
+            .welcome-text {
+                font-size: 14px;
+                margin-right: 10px;
+            }
+            .nav-buttons button {
+                font-size: 8px;
+                padding: 0 10px;
+                height: 25px;
+            }
+            .main-buttons button {
+                font-size: 16px;
+                height: 80px;
+                padding: 0 10px;
+                margin: 5px;
+                flex-basis: 100%; /* Hacer que los botones sean de ancho completo */
+            }
+            .main-buttons button i {
+                font-size: 20px;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
+            .header img {
+                height: 60px;
+            }
+            .contact-info p {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="left">
+        <p class="welcome-text" id="welcomeText">¡Bienvenido, Usuario! – </p>
+    </div>
+    <div class="right">
+        <button onclick="location.href='InicioSesion.html'">Cerrar Sesión</button>
+    </div>
+</div>
+
+<div class="header">
+    <div>
+        <h1>Productos Sory</h1>
+        <div class="contact-info">
+            <p><i class="fas fa-map-pin"></i> Managua, Nicaragua</p>
+            <p><i class="fab fa-whatsapp"></i> (505) 7625-4465</p>
+            <p><i class="fab fa-instagram"></i> Instagram: ProductosSory.nic</p>
+        </div>
+    </div>
+    <img src="ProductoSory-removebg-preview.png" alt="Productos Sory">
+</div>
+
+<h2>Página Principal</h2>
+
+<div class="main-buttons">
+    <button onclick="location.href='Realizar_Pedido.html'"><i class="fas fa-shopping-cart"></i>Realizar un Pedido</button>
+    <button onclick="location.href='Ordenes.html'"><i class="fas fa-clipboard-list"></i>Panel de Pedidos</button>
+    <button onclick="location.href='Ventas.html'"><i class="fas fa-chart-line"></i>Panel de Ventas</button>
+    <button onclick="location.href='Inventario.html'"><i class="fas fa-warehouse"></i>Panel de Inventario</button>
+</div>
+
+<script>
+    function updateDateTime() {
+        const welcomeText = document.getElementById('welcomeText');
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        welcomeText.textContent += now.toLocaleDateString('es-ES', options);
+    }
+    updateDateTime();
+</script>
+
+</body>
+</html>
+
+
+
+
+

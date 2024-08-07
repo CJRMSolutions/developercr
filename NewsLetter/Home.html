@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Newsletter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="NO_Image.png" alt="Logo" class="logo">
+            <div class="header-text">
+                <h1>Customer Retention Newsletter</h1>
+                <p>Issue No 1 | FW31 - August 2024 | CR</p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="main-content">
+            <div class="topics">
+                <a href="CS.html" class="topic-link">
+                    <div class="topic">
+                        <h2>Customer Service</h2>
+                        <p>Find out the latest information on call drivers and customer resolution.</p>
+                    </div>
+                </a>
+                <a href="ST.html" class="topic-link">
+                    <div class="topic">
+                        <h2>Support Team</h2>
+                        <p>Find out the latest information on support to the field.</p>
+                    </div>
+                </a>
+                <a href="SocialMedia.html" class="topic-link">
+                    <div class="topic">
+                        <h2>Social Media</h2>
+                        <p>Find out the latest information on what our customers are saying.</p>
+                    </div>
+                </a>
+                <a href="2024 RoadMap.html" class="topic-link">
+                    <div class="topic">
+                        <h2>2024 RoadMap</h2>
+                        <p>See the planned initiatives and goals for the upcoming year.</p>
+                    </div>
+                </a>
+            </div>
+            <div class="right-content">
+                <section class="highlights-lowlights">
+                    <div class="highlight">
+                        <h2>Highlights</h2>
+                        <p>Describe the highlights here...</p>
+                    </div>
+                    <div class="lowlight">
+                        <h2>Lowlights</h2>
+                        <p>Describe the lowlights here...</p>
+                    </div>
+                </section>
+                <section class="services">
+                    <h2>Task Manager</h2>
+                    <table class="project-planner">
+                        <thead>
+                            <tr>
+                                <th>Task Name</th>
+                                <th>Owner</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Status</th>
+                                <th>Comments</th>
+                            </tr>
+                        </thead>
+                        <tbody id="planner-body">
+                            <tr onclick="openPopup(this)">
+                                <td>Update Website</td>
+                                <td>John Doe</td>
+                                <td>2024-08-01</td>
+                                <td>2024-08-15</td>
+                                <td>In Progress</td>
+                                <td>Initial phase</td>
+                            </tr>
+                            <tr onclick="openPopup(this)">
+                                <td>Customer Survey</td>
+                                <td>Jane Smith</td>
+                                <td>2024-08-05</td>
+                                <td>2024-08-20</td>
+                                <td>Not Started</td>
+                                <td></td>
+                            </tr>
+                            <tr onclick="openPopup(this)">
+                                <td>New Feature Launch</td>
+                                <td>Mike Brown</td>
+                                <td>2024-08-10</td>
+                                <td>2024-09-10</td>
+                                <td>Completed</td>
+                                <td>Released on time</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button onclick="openAddPopup()">Add New Task</button>
+                </section>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Customer Retention.</p>
+    </footer>
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>Edit Task</h2>
+            <form id="edit-form">
+                <label for="task-name">Task Name:</label>
+                <input type="text" id="task-name" name="task-name"><br>
+                <label for="owner">Owner:</label>
+                <input type="text" id="owner" name="owner"><br>
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date" name="start-date"><br>
+                <label for="end-date">End Date:</label>
+                <input type="date" id="end-date" name="end-date"><br>
+                <label for="status">Status:</label>
+                <input type="text" id="status" name="status"><br>
+                <label for="comments">Comments:</label>
+                <input type="text" id="comments" name="comments"><br>
+                <button type="button" onclick="saveTask()">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="add-popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closeAddPopup()">&times;</span>
+            <h2>Add New Task</h2>
+            <form id="add-form">
+                <label for="add-task-name">Task Name:</label>
+                <input type="text" id="add-task-name" name="add-task-name"><br>
+                <label for="add-owner">Owner:</label>
+                <input type="text" id="add-owner" name="add-owner"><br>
+                <label for="add-start-date">Start Date:</label>
+                <input type="date" id="add-start-date" name="add-start-date"><br>
+                <label for="add-end-date">End Date:</label>
+                <input type="date" id="add-end-date" name="add-end-date"><br>
+                <label for="add-status">Status:</label>
+                <input type="text" id="add-status" name="add-status"><br>
+                <label for="add-comments">Comments:</label>
+                <input type="text" id="add-comments" name="add-comments"><br>
+                <button type="button" onclick="addTask()">Add Task</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Retention Evaluation Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 14px; 
+            background-color: #e3e3e3; 
+        }
+
+        .top-bar {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar .welcome {
+            font-size: 14px;
+        }
+
+        .top-bar .sign-out {
+            background-color: white;
+            color: #333;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+
+        .content {
+            flex: 3;
+            margin-right: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            color: #233142; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px; 
+        }
+
+        h1 img {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 50px;
+        }
+
+        .top-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .top-buttons button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px; 
+        }
+
+        .top-buttons button.submit {
+            background-color: #455d7a; 
+            margin-left: auto;
+        }
+
+        .top-buttons button.reset {
+            background-color: #f95959; 
+            margin-right: auto;
+        }
+
+        .info-table,
+        .evaluation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .info-table td,
+        .evaluation-table th,
+        .evaluation-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            font-size: 12px; 
+        }
+
+        .info-table tr:nth-child(even),
+        .evaluation-table tr:nth-child(even) {
+            background-color: #e3e3e3; 
+        }
+
+        .evaluation-table th {
+            background-color: #455d7a;
+            color: white;
+            text-align: center;
+        }
+
+        .evaluation-table td {
+            text-align: center;
+        }
+
+        .evaluation-table td:first-child {
+            text-align: left;
+        }
+
+        .red-flags,
+        .final-grade {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            color: #233142; 
+            font-size: 16px; 
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e3e3e3; 
+            margin-bottom: 5px;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        ul li select {
+            margin-left: 10px;
+            width: 70px;
+        }
+
+        p {
+            margin: 5px 0;
+        }
+
+        select {
+            width: 100%;
+        }
+
+        .call-outcome {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-end;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #e3e3e3; 
+        }
+
+        .comments {
+            width: 100%;
+            margin-bottom: 20px;
+            margin-right: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 300px; 
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .bottom-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bottom-section div {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .bottom-section div:last-child {
+            margin-right: 0;
+        }
+
+        .bottom-section select {
+            width: 100%;
+        }
+
+        .final-grade p {
+            margin: 0;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .attach-recording {
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .attach-recording label {
+            display: block;
+            margin-bottom: 5px;
+            color: #233142; 
+        }
+
+        .attach-recording input {
+            width: 100%;
+            padding: 5px;
+        }
+
+        .red-flags-container {
+            margin-bottom: 20px;
+        }
+
+        .red-flags select, .final-grade select {
+            width: 100px;
+        }
+
+        .final-grade-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            width: 100%;
+            font-size: 14px; 
+        }
+
+        .final-grade-container div {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .final-grade-container select, .final-grade-container p {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="welcome">Welcome, User! – Monday, July 8, 2024 at 11:15:48 PM</div>
+        <button class="sign-out">Sign-Out</button>
+    </div>
+    <div class="container">
+        <div class="content">
+            <h1>
+                <img src="NO_Image.png" alt="Logo">
+                Customer Retention Evaluation
+            </h1>
+            <table class="info-table">
+                <tr>
+                    <td><strong>SID:</strong></td>
+                    <td>
+                        <select>
+                            <option value="test1">test1</option>
+                            <option value="test2">test2</option>
+                        </select>
+                    </td>
+                    <td><strong>Auditor:</strong></td>
+                    <td>
+                        <select>
+                            <option value="test1">test1</option>
+                            <option value="test2">test2</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Agent's Name:</strong></td>
+                    <td>
+                        <select>
+                            <option value="test1">test1</option>
+                            <option value="test2">test2</option>
+                        </select>
+                    </td>
+                    <td><strong>Audit Date:</strong></td>
+                    <td>
+                        <select>
+                            <option value="test1">test1</option>
+                            <option value="test2">test2</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Call ID:</strong></td>
+                    <td>
+                        <select>
+                            <option value="test1">test1</option>
+                            <option value="test2">test2</option>
+                        </select>
+                    </td>
+                    <td><strong>Store:</strong></td>
+                    <td>
+                        <select>
+                            <option value="test1">test1</option>
+                            <option value="test2">test2</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Call Type:</strong></td>
+                    <td>
+                        <select>
+                            <option value="test1">test1</option>
+                            <option value="test2">test2</option>
+                        </select>
+                    </td>
+                    <td><strong>LOB:</strong></td>
+                    <td>
+                        <select>
+                            <option value="test1">test1</option>
+                            <option value="test2">test2</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Call Date:</strong></td>
+                    <td>
+                        <select>
+                            <option value="test1">test1</option>
+                            <option value="test2">test2</option>
+                        </select>
+                    </td>
+                    <td><strong>Main Disposition:</strong></td>
+                    <td>
+                        <select>
+                            <option value="test1">test1</option>
+                            <option value="test2">test2</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Call Time:</strong></td>
+                    <td>
+                        <select>
+                            <option value="test1">test1</option>
+                            <option value="test2">test2</option>
+                        </select>
+                    </td>
+                    <td><strong>Sub - Disposition:</strong></td>
+                    <td>
+                        <select>
+                            <option value="test1">test1</option>
+                            <option value="test2">test2</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Call Length:</strong></td>
+                    <td>
+                        <select>
+                            <option value="test1">test1</option>
+                            <option value="test2">test2</option>
+                        </select>
+                    </td>
+                    <td><strong>Supervisor:</strong></td>
+                    <td>
+                        <select>
+                            <option value="test1">test1</option>
+                            <option value="test2">test2</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Language:</strong></td>
+                    <td>
+                        <select>
+                            <option value="test1">test1</option>
+                            <option value="test2">test2</option>
+                        </select>
+                    </td>
+                    <td><strong>PT ID:</strong></td>
+                    <td>
+                        <select>
+                            <option value="test1">test1</option>
+                            <option value="test2">test2</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="evaluation-table">
+                <thead>
+                    <tr>
+                        <th>Quality Performance Measurements</th>
+                        <th>Weight</th>
+                        <th>Points Earned</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="4"><strong>Opening/Closure Skills</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Uses properly Greeting</td>
+                        <td class="weight">5</td>
+                        <td class="points-earned">5</td>
+                        <td>
+                            <select onchange="updateScores(this)">
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Appropriately Close the call</td>
+                        <td class="weight">5</td>
+                        <td class="points-earned">5</td>
+                        <td>
+                            <select onchange="updateScores(this)">
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"><strong>Softskills</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Agent acknowledged the customer's reason for calling</td>
+                        <td class="weight">7</td>
+                        <td class="points-earned">7</td>
+                        <td>
+                            <select onchange="updateScores(this)">
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Agent demonstrated active listening</td>
+                        <td class="weight">7</td>
+                        <td class="points-earned">7</td>
+                        <td>
+                            <select onchange="updateScores(this)">
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Agent demonstrated empathy</td>
+                        <td class="weight">7</td>
+                        <td class="points-earned">7</td>
+                        <td>
+                            <select onchange="updateScores(this)">
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Agent displayed a professional manner throughout the call</td>
+                        <td class="weight">7</td>
+                        <td class="points-earned">7</td>
+                        <td>
+                            <select onchange="updateScores(this)">
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Agent sounded upbeat and enthusiastic and adapt the Pace</td>
+                        <td class="weight">7</td>
+                        <td class="points-earned">7</td>
+                        <td>
+                            <select onchange="updateScores(this)">
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"><strong>Subject Matter Expertise</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Agent verified and Recorded Customer Information Properly</td>
+                        <td class="weight">8</td>
+                        <td class="points-earned">8</td>
+                        <td>
+                            <select onchange="updateScores(this)">
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Agent used effective communications/questioning skills</td>
+                        <td class="weight">8</td>
+                        <td class="points-earned">8</td>
+                        <td>
+                            <select onchange="updateScores(this)">
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Product & Policy Adherence</td>
+                        <td class="weight">8</td>
+                        <td class="points-earned">8</td>
+                        <td>
+                            <select onchange="updateScores(this)">
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Documentation</td>
+                        <td class="weight">8</td>
+                        <td class="points-earned">8</td>
+                        <td>
+                            <select onchange="updateScores(this)">
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Language and comprehension</td>
+                        <td class="weight">8</td>
+                        <td class="points-earned">8</td>
+                        <td>
+                            <select onchange="updateScores(this)">
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Hold Guidelines</td>
+                        <td class="weight">5</td>
+                        <td class="points-earned">5</td>
+                        <td>
+                            <select onchange="updateScores(this)">
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"><strong>Patient Experience</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Customer Advocacy</td>
+                        <td class="weight">10</td>
+                        <td class="points-earned">10</td>
+                        <td>
+                            <select onchange="updateScores(this)">
+                                <option value="Y">Y</option>
+                                <option value="N">N</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td><strong>Grade</strong></td>
+                        <td><strong>100</strong></td>
+                        <td><strong id="totalPoints">0</strong></td>
+                        <td><strong id="finalScore">0.00%</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="red-flags-container">
+                <div class="red-flags">
+                    <h2>Red Flags</h2>
+                    <ul>
+                        <li>RF1 - Unprofessional Behavior
+                            <select style="width: 100px;" onchange="updateTotalScore()">
+                                <option value="N">N</option>
+                                <option value="Y">Y</option>
+                            </select>
+                        </li>
+                        <li>RF2 - Call Avoidance
+                            <select style="width: 100px;" onchange="updateTotalScore()">
+                                <option value="N">N</option>
+                                <option value="Y">Y</option>
+                            </select>
+                        </li>
+                        <li>RF3 - Misleading Information
+                            <select style="width: 100px;" onchange="updateTotalScore()">
+                                <option value="N">N</option>
+                                <option value="Y">Y</option>
+                            </select>
+                        </li>
+                        <li>RF4 - Policies and Procedures
+                            <select style="width: 100px;" onchange="updateTotalScore()">
+                                <option value="N">N</option>
+                                <option value="Y">Y</option>
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="call-outcome">
+            <div class="top-buttons">
+                <button type="button" class="submit">Submit</button>
+                <button type="button" class="reset" onclick="resetForm()">Reset</button>
+            </div>
+            <div class="comments">
+                <label for="comments"><strong>Comments:</strong></label>
+                <textarea id="comments" placeholder="Enter comments here..."></textarea>
+            </div>
+            <div class="final-grade-container">
+                <div>
+                    <label for="main-disposition"><strong>Main Disposition:</strong></label>
+                    <select id="main-disposition">
+                        <option value="Insurance">Insurance</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="sub-disposition"><strong>Sub Disposition:</strong></label>
+                    <select id="sub-disposition">
+                        <option value="116 Insurance">116 Insurance</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="final-grade">
+                    <h2>Final Grade:</h2>
+                    <p id="finalGrade">0.00%</p>
+                </div>
+            </div>
+            <div class="attach-recording">
+                <label for="attachRecording"><strong>Attach Recording:</strong></label>
+                <input type="file" id="attachRecording" accept="audio/*">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateScores(selectElement) {
+            const row = selectElement.closest('tr');
+            const weightCell = row.querySelector('.weight');
+            const pointsEarnedCell = row.querySelector('.points-earned');
+
+            const weight = parseFloat(weightCell.textContent);
+
+            if (selectElement.value === 'N') {
+                pointsEarnedCell.textContent = 0;
+            } else if (selectElement.value === 'Y') {
+                pointsEarnedCell.textContent = weight;
+            }
+
+            updateTotalScore();
+        }
+
+        function updateTotalScore() {
+            const pointsEarnedCells = document.querySelectorAll('.points-earned');
+            let totalPoints = 0;
+
+            pointsEarnedCells.forEach(cell => {
+                totalPoints += parseFloat(cell.textContent);
+            });
+
+            const redFlagSelects = document.querySelectorAll('.red-flags select');
+            let hasRedFlag = false;
+            redFlagSelects.forEach(select => {
+                if (select.value === 'Y') {
+                    hasRedFlag = true;
+                }
+            });
+
+            const totalPointsCell = document.getElementById('totalPoints');
+            const finalScoreCell = document.getElementById('finalScore');
+
+            if (hasRedFlag) {
+                totalPointsCell.textContent = 0;
+                finalScoreCell.textContent = '0.00%';
+            } else {
+                totalPointsCell.textContent = totalPoints;
+                finalScoreCell.textContent = ((totalPoints / 100) * 100).toFixed(2) + '%';
+            }
+
+            document.getElementById('finalGrade').textContent = finalScoreCell.textContent;
+        }
+
+        function resetForm() {
+            const selects = document.querySelectorAll('select');
+            selects.forEach(select => {
+                select.value = 'N';
+            });
+
+            document.getElementById('comments').value = '';
+            document.getElementById('attachRecording').value = '';
+            updateTotalScore();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateTotalScore();
+        });
+    </script>
+</body>
+</html>

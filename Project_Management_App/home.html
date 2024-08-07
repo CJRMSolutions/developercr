@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management Board</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Projects</h2>
+        </div>
+        <ul class="project-list">
+            <li class="project-item active">Workforce PM</li>
+            <li class="project-item">Customer Service PM</li>
+            <li class="project-item">Duties Distribution</li>
+            <li class="project-item">BPO Reporting QA</li>
+            <li class="project-item">CR/WFM Task Tracking</li>
+        </ul>
+        <div class="sidebar-footer">
+            <p>You're in a team-managed project</p>
+            <a href="#">Give feedback</a>
+        </div>
+    </div>
+    <div class="main-content">
+        <header>
+            <h1>Workforce PM</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#">Summary</a></li>
+                    <li><a href="#">Board</a></li>
+                    <li><a href="#">Calendar</a></li>
+                    <!-- Add more navigation items as needed -->
+                </ul>
+            </nav>
+        </header>
+        <div class="board">
+            <div class="board-column" id="todo">
+                <h2>To Do</h2>
+                <div class="board-item">
+                    <p>Repeat Caller Dashboard</p>
+                    <p><small>08 Mar</small></p>
+                </div>
+                <!-- Add more items as needed -->
+            </div>
+            <div class="board-column" id="in-progress">
+                <h2>In Progress</h2>
+                <div class="board-item">
+                    <p>Store - Call Performance Enhancements</p>
+                    <p><small>WPM-113</small></p>
+                </div>
+                <!-- Add more items as needed -->
+            </div>
+            <div class="board-column" id="on-hold">
+                <h2>On Hold</h2>
+                <div class="board-item">
+                    <p>Create</p>
+                </div>
+            
+            </div>
+            <div class="board-column" id="cancelled">
+                <h2>Cancelled</h2>
+                <div class="board-item">
+                    <p>OB Contact Center - Update</p>
+                    <p><small>03 Jul</small></p>
+                </div>
+
+            </div>
+            <div class="board-column" id="done">
+                <h2>Done</h2>
+                <div class="board-item">
+                    <p>CA Sup Commissions</p>
+                    <p><small>WPM-131</small></p>
+                </div>
+                <!-- Add more items as needed -->
+            </div>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

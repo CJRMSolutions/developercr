@@ -1,0 +1,23 @@
+{
+    "inventory": [
+        {"id": 1, "product": "Producto A", "quantity": 100, "price": 10.00},
+        {"id": 2, "product": "Producto B", "quantity": 50, "price": 20.00},
+        {"id": 3, "product": "Producto C", "quantity": 200, "price": 5.00},
+        {"id": 4, "product": "Producto D", "quantity": 150, "price": 15.00},
+        {"id": 5, "product": "Producto E", "quantity": 80, "price": 30.00}
+    ],
+    "sales": [
+        {"id": 1, "product": "Producto A", "quantity": 20, "total_price": 200.00, "date": "2024-07-01"},
+        {"id": 2, "product": "Producto B", "quantity": 10, "total_price": 200.00, "date": "2024-07-02"},
+        {"id": 3, "product": "Producto C", "quantity": 50, "total_price": 250.00, "date": "2024-07-03"},
+        {"id": 4, "product": "Producto D", "quantity": 30, "total_price": 450.00, "date": "2024-07-04"},
+        {"id": 5, "product": "Producto E", "quantity": 5, "total_price": 150.00, "date": "2024-07-05"}
+    ],
+    "orders": [
+        {"id": 1, "product": "Producto A", "quantity": 10, "price": 10.00, "status": "Pendiente"},
+        {"id": 2, "product": "Producto B", "quantity": 5, "price": 20.00, "status": "Completado"},
+        {"id": 3, "product": "Producto C", "quantity": 20, "price": 5.00, "status": "Pendiente"},
+        {"id": 4, "product": "Producto D", "quantity": 15, "price": 15.00, "status": "Completado"},
+        {"id": 5, "product": "Producto E", "quantity": 8, "price": 30.00, "status": "Pendiente"}
+    ]
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap Calendar 2024</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="NO_Image.png" alt="Logo" class="logo">
+            <div class="header-text">
+                <h1>Customer Retention Roadmap 2024</h1>
+                <p>Plan and track projects for the year</p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="roadmap">
+            <div class="months">
+                <div class="month project-header">Projects</div>
+                <div class="month">Jan</div>
+                <div class="month">Feb</div>
+                <div class="month">Mar</div>
+                <div class="month">Apr</div>
+                <div class="month">May</div>
+                <div class="month">Jun</div>
+                <div class="month">Jul</div>
+                <div class="month">Aug</div>
+                <div class="month">Sep</div>
+                <div class="month">Oct</div>
+                <div class="month">Nov</div>
+                <div class="month">Dec</div>
+                <div class="month actions-header">Actions</div>
+            </div>
+            <div class="projects">
+                <div class="project" data-id="1">
+                    <div class="project-name">Update Website</div>
+                    <div class="project-bar" data-start-date="2024-01-01" data-end-date="2024-03-31"></div>
+                    <div class="actions">
+                        <button class="edit-btn" onclick="openEditPopup(1)">Edit</button>
+                        <button class="delete-btn" onclick="deleteProject(1)">Delete</button>
+                    </div>
+                </div>
+                <div class="project" data-id="2">
+                    <div class="project-name">Customer Survey</div>
+                    <div class="project-bar" data-start-date="2024-02-01" data-end-date="2024-03-31"></div>
+                    <div class="actions">
+                        <button class="edit-btn" onclick="openEditPopup(2)">Edit</button>
+                        <button class="delete-btn" onclick="deleteProject(2)">Delete</button>
+                    </div>
+                </div>
+                <div class="project" data-id="3">
+                    <div class="project-name">New Feature Launch</div>
+                    <div class="project-bar" data-start-date="2024-03-01" data-end-date="2024-06-30"></div>
+                    <div class="actions">
+                        <button class="edit-btn" onclick="openEditPopup(3)">Edit</button>
+                        <button class="delete-btn" onclick="deleteProject(3)">Delete</button>
+                    </div>
+                </div>
+            </div>
+            <button onclick="openAddPopup()">Add New Project</button>
+        </section>
+    </main>
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>Edit Project</h2>
+            <form id="edit-form">
+                <label for="edit-project-name">Project Name:</label>
+                <input type="text" id="edit-project-name" name="edit-project-name"><br>
+                <label for="edit-start-date">Start Date:</label>
+                <input type="date" id="edit-start-date" name="edit-start-date"><br>
+                <label for="edit-end-date">End Date:</label>
+                <input type="date" id="edit-end-date" name="edit-end-date"><br>
+                <button type="button" onclick="saveProject()">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="add-popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closeAddPopup()">&times;</span>
+            <h2>Add New Project</h2>
+            <form id="add-form">
+                <label for="add-project-name">Project Name:</label>
+                <input type="text" id="add-project-name" name="add-project-name"><br>
+                <label for="add-start-date">Start Date:</label>
+                <input type="date" id="add-start-date" name="add-start-date"><br>
+                <label for="add-end-date">End Date:</label>
+                <input type="date" id="add-end-date" name="add-end-date"><br>
+                <button type="button" onclick="addProject()">Add Project</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

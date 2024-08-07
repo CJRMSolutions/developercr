@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #222831;
+            padding: 10px 20px;
+            border-bottom: 2px solid #393e46;
+            color: #f2f2f2;
+        }
+        .top-bar .left {
+            display: flex;
+            align-items: center;
+        }
+        .top-bar .right {
+            display: flex;
+            align-items: center;
+        }
+        .welcome-text {
+            font-size: 16px;
+            margin-right: 20px;
+        }
+        .nav-buttons {
+            display: flex;
+        }
+        .nav-buttons button {
+            background-color: #f96d00;
+            color: #f2f2f2;
+            border: none;
+            border-radius: 5px;
+            padding: 0 20px;
+            cursor: pointer;
+            font-size: 10px;
+            margin: 0 5px;
+            transition: background-color 0.3s;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-buttons button:hover {
+            background-color: #e65c00;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #393e46;
+        }
+        .header h1 {
+            font-size: 28px;
+            margin: 0;
+            color: #222831;
+        }
+        .header img {
+            height: 50px;
+            border-radius: 8px;
+        }
+        .contact-info {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+        h2 {
+            font-size: 28px;
+            margin: 20px 0 10px;
+            color: #222831;
+        }
+        .tables-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .table {
+            background-color: #d4edda; /* Light green for available */
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 150px;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 20px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .table img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+        }
+        .table.occupied {
+            background-color: #f8d7da; /* Light red for occupied */
+        }
+        .table:hover {
+            transform: scale(1.05);
+        }
+        .table-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .table button {
+            background-color: #f96d00;
+            color: #f2f2f2;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s;
+        }
+        .table button:hover {
+            background-color: #e65c00;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            margin: 5% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+        .close {
+            color: #aaa;
+            align-self: flex-end;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: #333;
+        }
+        .receipt-preview {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            flex: 1;
+            overflow-y: auto;
+            max-height: 300px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        .receipt-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .receipt-item button {
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px;
+            cursor: pointer;
+        }
+        .receipt-item button:hover {
+            background-color: darkred;
+        }
+        button {
+            background-color: #f96d00;
+            color: #f2f2f2;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #e65c00;
+        }
+        #sendEmailButton {
+            background-color: #007bff;
+        }
+        #sendEmailButton:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .top-bar, .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .nav-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            .nav-buttons button {
+                width: 100%;
+                margin: 5px 0;
+            }
+            .tables-container {
+                justify-content: space-around;
+            }
+            .table {
+                width: 100px;
+                height: 130px;
+                margin: 10px;
+            }
+            .table img {
+                width: 40px;
+                height: 40px;
+            }
+            .modal-content {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="left">
+        <p class="welcome-text" id="welcomeText">Welcome, User! – </p>
+    </div>
+    <div class="right">
+        <div class="nav-buttons">
+            <button>Place an Order</button>
+            <button>Orders Dashboard</button>
+            <button>Sales Dashboard</button>
+            <button>Inventory Dashboard</button>
+            <button>Sign-Out</button>
+        </div>
+    </div>
+</div>
+
+<div class="header">
+    <div>
+        <h1>Restaurant Garrobito</h1>
+        <div class="contact-info">
+            <p>Address: 124 ST SUITE 500, AL, 423781</p>
+            <p>Phone Number: 765 2376-1231</p>
+        </div>
+    </div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Flag_of_Nicaragua.svg/2560px-Flag_of_Nicaragua.svg.png" alt="Nicaraguan Flag">
+</div>
+
+<h2>Rest. Command Center</h2>
+<div class="tables-container">
+    <div class="table" data-table="1">
+        <img src="https://via.placeholder.com/50?text=Table1" alt="Table 1">
+        Table 1
+        <div class="table-buttons">
+            <button onclick="markTableAsAvailable(1)">Bill Paid</button>
+            <button onclick="openAddItemsPopup(1)">Add Items</button>
+        </div>
+    </div>
+    <div class="table" data-table="2">
+        <img src="https://via.placeholder.com/50?text=Table2" alt="Table 2">
+        Table 2
+        <div class="table-buttons">
+            <button onclick="markTableAsAvailable(2)">Bill Paid</button>
+            <button onclick="openAddItemsPopup(2)">Add Items</button>
+        </div>
+    </div>
+    <div class="table" data-table="3">
+        <img src="https://via.placeholder.com/50?text=Table3" alt="Table 3">
+        Table 3
+        <div class="table-buttons">
+            <button onclick="markTableAsAvailable(3)">Bill Paid</button>
+            <button onclick="openAddItemsPopup(3)">Add Items</button>
+        </div>
+    </div>
+    <div class="table" data-table="4">
+        <img src="https://via.placeholder.com/50?text=Table4" alt="Table 4">
+        Table 4
+        <div class="table-buttons">
+            <button onclick="markTableAsAvailable(4)">Bill Paid</button>
+            <button onclick="openAddItemsPopup(4)">Add Items</button>
+        </div>
+    </div>
+    <div class="table" data-table="5">
+        <img src="https://via.placeholder.com/50?text=Table5" alt="Table 5">
+        Table 5
+        <div class="table-buttons">
+            <button onclick="markTableAsAvailable(5)">Bill Paid</button>
+            <button onclick="openAddItemsPopup(5)">Add Items</button>
+        </div>
+    </div>
+    <div class="table" data-table="6">
+        <img src="https://via.placeholder.com/50?text=Table6" alt="Table 6">
+        Table 6
+        <div class="table-buttons">
+            <button onclick="markTableAsAvailable(6)">Bill Paid</button>
+            <button onclick="openAddItemsPopup(6)">Add Items</button>
+        </div>
+    </div>
+    <div class="table" data-table="7">
+        <img src="https://via.placeholder.com/50?text=Table7" alt="Table 7">
+        Table 7
+        <div class="table-buttons">
+            <button onclick="markTableAsAvailable(7)">Bill Paid</button>
+            <button onclick="openAddItemsPopup(7)">Add Items</button>
+        </div>
+    </div>
+    <div class="table" data-table="8">
+        <img src="https://via.placeholder.com/50?text=Table8" alt="Table 8">
+        Table 8
+        <div class="table-buttons">
+            <button onclick="markTableAsAvailable(8)">Bill Paid</button>
+            <button onclick="openAddItemsPopup(8)">Add Items</button>
+        </div>
+    </div>
+    <div class="table" data-table="9">
+        <img src="https://via.placeholder.com/50?text=Table9" alt="Table 9">
+        Table 9
+        <div class="table-buttons">
+            <button onclick="markTableAsAvailable(9)">Bill Paid</button>
+            <button onclick="openAddItemsPopup(9)">Add Items</button>
+        </div>
+    </div>
+    <div class="table" data-table="10">
+        <img src="https://via.placeholder.com/50?text=Table10" alt="Table 10">
+        Table 10
+        <div class="table-buttons">
+            <button onclick="markTableAsAvailable(10)">Bill Paid</button>
+            <button onclick="openAddItemsPopup(10)">Add Items</button>
+        </div>
+    </div>
+    <div class="table" data-table="11">
+        <img src="https://via.placeholder.com/50?text=Table11" alt="Table 11">
+        Table 11
+        <div class="table-buttons">
+            <button onclick="markTableAsAvailable(11)">Bill Paid</button>
+            <button onclick="openAddItemsPopup(11)">Add Items</button>
+        </div>
+    </div>
+    <div class="table" data-table="12">
+        <img src="https://via.placeholder.com/50?text=Table12" alt="Table 12">
+        Table 12
+        <div class="table-buttons">
+            <button onclick="markTableAsAvailable(12)">Bill Paid</button>
+            <button onclick="openAddItemsPopup(12)">Add Items</button>
+        </div>
+    </div>
+</div>
+
+<!-- The Order Modal -->
+<div id="orderModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Order Details</h2>
+        <div id="orderDetails"></div>
+        <div class="receipt-preview" id="receiptPreview"></div>
+        <button onclick="generatePDF()">Generate PDF Receipt</button>
+        <button onclick="printReceipt()">Print Receipt</button>
+        <button id="sendEmailButton" onclick="openEmailPopup()">Send via Email</button>
+    </div>
+</div>
+
+<!-- The Add Items Modal -->
+<div id="addItemsModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeAddItemsPopup()">&times;</span>
+        <h2>Add Items to Order</h2>
+        <div id="menuItems">
+            <button onclick="addItemToOrder('Grilled Salmon', 20)">Grilled Salmon - $20</button>
+            <button onclick="addItemToOrder('Lobster Tail', 35)">Lobster Tail - $35</button>
+            <button onclick="addItemToOrder('Steak', 30)">Steak - $30</button>
+            <button onclick="addItemToOrder('Ribs', 28)">Ribs - $28</button>
+            <button onclick="addItemToOrder('Lamb Chops', 32)">Lamb Chops - $32</button>
+            <button onclick="addItemToOrder('Grilled Chicken', 18)">Grilled Chicken - $18</button>
+            <button onclick="addItemToOrder('Chicken Wings', 15)">Chicken Wings - $15</button>
+            <button onclick="addItemToOrder('Chicken Parmesan', 20)">Chicken Parmesan - $20</button>
+            <button onclick="addItemToOrder('Cheesecake', 8)">Cheesecake - $8</button>
+            <button onclick="addItemToOrder('Chocolate Cake', 7)">Chocolate Cake - $7</button>
+            <button onclick="addItemToOrder('Ice Cream Sundae', 6)">Ice Cream Sundae - $6</button>
+            <button onclick="addItemToOrder('Pale Ale', 5)">Pale Ale - $5</button>
+            <button onclick="addItemToOrder('Lager', 5)">Lager - $5</button>
+            <button onclick="addItemToOrder('Stout', 6)">Stout - $6</button>
+        </div>
+    </div>
+</div>
+
+<!-- Email Popup -->
+<div id="emailPopup" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeEmailPopup()">&times;</span>
+        <h2>Send Receipt via Email</h2>
+        <form id="emailForm">
+            <label for="emailAddress">Email Address:</label>
+            <input type="email" id="emailAddress" name="emailAddress" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+<script>
+    let currentTableNumber = null;
+
+    function updateDateTime() {
+        const welcomeText = document.getElementById('welcomeText');
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        welcomeText.textContent += now.toLocaleDateString('en-US', options);
+    }
+    updateDateTime();
+
+    function updateTableColors() {
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        document.querySelectorAll('.table').forEach(table => {
+            const tableNumber = table.getAttribute('data-table');
+            const tableOrders = orders.filter(order => order.tableNumber == tableNumber);
+            if (tableOrders.length > 0) {
+                table.classList.add('occupied');
+            } else {
+                table.classList.remove('occupied');
+            }
+        });
+    }
+
+    const modal = document.getElementById('orderModal');
+    const addItemsModal = document.getElementById('addItemsModal');
+    const emailPopup = document.getElementById('emailPopup');
+    const span = document.getElementsByClassName('close')[0];
+    const orderDetailsDiv = document.getElementById('orderDetails');
+    const receiptPreviewDiv = document.getElementById('receiptPreview');
+
+    function showOrderDetails(tableNumber) {
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        const tableOrders = orders.filter(order => order.tableNumber == tableNumber);
+
+        if (tableOrders.length === 0) {
+            orderDetailsDiv.innerHTML = '<p>No orders for this table.</p>';
+            receiptPreviewDiv.innerHTML = '';
+        } else {
+            let orderDetails = '';
+            let receiptPreview = '<p><strong>Restaurant Garrobito</strong></p>' +
+                                 '<p>Address: 124 ST SUITE 500, AL, 423781</p>' +
+                                 '<p>Phone Number: 765 2376-1231</p>' +
+                                 `<p>Date: ${new Date().toLocaleDateString()}</p>` +
+                                 `<p><strong>Table ${tableNumber} Order Details:</strong></p>`;
+
+            let subtotal = 0;
+            tableOrders.forEach(order => {
+                orderDetails += `<p><strong>Table ${order.tableNumber}</strong></p>`;
+                order.orderDetails.forEach((item, index) => {
+                    orderDetails += `<div class="receipt-item"><p>${item.name} - $${item.price.toFixed(2)}</p><button onclick="removeItem(${tableNumber}, ${index})">Remove</button></div>`;
+                    receiptPreview += `<p>${item.name} - $${item.price.toFixed(2)}</p>`;
+                    subtotal += item.price;
+                });
+            });
+
+            const tax = subtotal * 0.15;
+            const total = subtotal + tax;
+
+            orderDetailsDiv.innerHTML = orderDetails;
+            receiptPreview += `<p>Subtotal: $${subtotal.toFixed(2)}</p>` +
+                              `<p>Tax (15%): $${tax.toFixed(2)}</p>` +
+                              `<p>Total: $${total.toFixed(2)}</p>` +
+                              '<p>Thank you!</p>';
+            receiptPreviewDiv.innerHTML = receiptPreview;
+        }
+
+        modal.style.display = 'block';
+        updateTableColors();
+    }
+
+    function markTableAsAvailable(tableNumber) {
+        let orders = JSON.parse(localStorage.getItem('orders')) || [];
+        orders = orders.filter(order => order.tableNumber != tableNumber);
+        localStorage.setItem('orders', JSON.stringify(orders));
+        updateTableColors();
+    }
+
+    function removeItem(tableNumber, itemIndex) {
+        let orders = JSON.parse(localStorage.getItem('orders')) || [];
+        const tableOrderIndex = orders.findIndex(order => order.tableNumber == tableNumber);
+        if (tableOrderIndex > -1) {
+            orders[tableOrderIndex].orderDetails.splice(itemIndex, 1);
+            if (orders[tableOrderIndex].orderDetails.length === 0) {
+                orders.splice(tableOrderIndex, 1);
+            }
+            localStorage.setItem('orders', JSON.stringify(orders));
+            showOrderDetails(tableNumber);
+        }
+    }
+
+    function openAddItemsPopup(tableNumber) {
+        currentTableNumber = tableNumber;
+        addItemsModal.style.display = 'block';
+    }
+
+    function closeAddItemsPopup() {
+        addItemsModal.style.display = 'none';
+    }
+
+    function addItemToOrder(itemName, itemPrice) {
+        let orders = JSON.parse(localStorage.getItem('orders')) || [];
+        const tableOrderIndex = orders.findIndex(order => order.tableNumber == currentTableNumber);
+        if (tableOrderIndex > -1) {
+            orders[tableOrderIndex].orderDetails.push({ name: itemName, price: itemPrice });
+        } else {
+            orders.push({
+                tableNumber: currentTableNumber,
+                orderDetails: [{ name: itemName, price: itemPrice }]
+            });
+        }
+        localStorage.setItem('orders', JSON.stringify(orders));
+        closeAddItemsPopup();
+        updateTableColors();
+        showOrderDetails(currentTableNumber);
+    }
+
+    span.onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        } else if (event.target == emailPopup) {
+            emailPopup.style.display = 'none';
+        } else if (event.target == addItemsModal) {
+            addItemsModal.style.display = 'none';
+        }
+    }
+
+    document.querySelectorAll('.table').forEach(table => {
+        table.addEventListener('click', () => {
+            showOrderDetails(table.getAttribute('data-table'));
+        });
+    });
+
+    function generatePDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const receiptContent = receiptPreviewDiv.innerText;
+
+        doc.setFontSize(12);
+        const lines = doc.splitTextToSize(receiptContent, pageWidth - 20);
+        doc.text(lines, 10, 10, { align: 'center' });
+
+        doc.save('receipt.pdf');
+    }
+
+    function printReceipt() {
+        const printContents = receiptPreviewDiv.innerHTML;
+        const originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+
+    function openEmailPopup() {
+        emailPopup.style.display = 'block';
+    }
+
+    function closeEmailPopup() {
+        emailPopup.style.display = 'none';
+    }
+
+    document.getElementById('emailForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const emailAddress = document.getElementById('emailAddress').value;
+        const subject = `Restaurant Garrobito Bill - ${new Date().toLocaleString()}`;
+        const body = document.getElementById('receiptPreview').innerText;
+
+        window.location.href = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        closeEmailPopup();
+    });
+
+    // Initialize table colors on page load
+    updateTableColors();
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

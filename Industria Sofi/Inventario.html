@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1c3919;
+            padding: 10px 20px;
+            border-bottom: 2px solid #393e46;
+            color: #f2f2f2;
+        }
+        .top-bar .left {
+            display: flex;
+            align-items: center;
+        }
+        .top-bar .right {
+            display: flex;
+            align-items: center;
+        }
+        .welcome-text {
+            font-size: 16px;
+            margin-right: 20px;
+        }
+        .nav-buttons {
+            display: flex;
+        }
+        .nav-buttons button {
+            background-color: #f96d00;
+            color: #f2f2f2;
+            border: none;
+            border-radius: 5px;
+            padding: 0 20px;
+            cursor: pointer;
+            font-size: 10px;
+            margin: 0 5px;
+            transition: background-color 0.3s;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-buttons button:hover {
+            background-color: #e65c00;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #393e46;
+        }
+        .header h1 {
+            font-size: 28px;
+            margin: 0;
+            color: #222831;
+        }
+        .header img {
+            height: 100px;
+            width: auto;
+            border-radius: 8px;
+        }
+        .contact-info {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+        .contact-info p {
+            display: flex;
+            align-items: center;
+        }
+        .contact-info p i {
+            margin-right: 10px;
+        }
+        h2 {
+            font-size: 28px;
+            margin: 20px 0 10px;
+            color: #222831;
+        }
+        .button-group {
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .button-group button {
+            background-color: #28a745;
+            color: #f2f2f2;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .button-group button:hover {
+            background-color: #218838;
+        }
+        .export-button {
+            background-color: #007bff;
+        }
+        .export-button:hover {
+            background-color: #0056b3;
+        }
+        .import-button {
+            background-color: #ffc107;
+        }
+        .import-button:hover {
+            background-color: #e0a800;
+        }
+        .go-back-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .go-back-button button {
+            background-color: #f96d00;
+            color: #f2f2f2;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 10px;
+            transition: background-color 0.3s;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .go-back-button button:hover {
+            background-color: #e65c00;
+        }
+        .inventory-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .inventory-table th, .inventory-table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        .inventory-table th {
+            background-color: #222831;
+            color: #f2f2f2;
+        }
+        .inventory-table td button {
+            background-color: #007bff;
+            color: #f2f2f2;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .inventory-table td button:hover {
+            background-color: #0056b3;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            max-width: 400px;
+            border-radius: 10px;
+            font-family: monospace;
+        }
+        .modal-header, .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-footer {
+            margin-top: 20px;
+            justify-content: center;
+        }
+        .modal-footer button {
+            margin-left: 10px;
+        }
+        .receipt-line {
+            border-bottom: 1px dashed #000;
+            margin: 5px 0;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .header h1 {
+                font-size: 24px;
+            }
+            .header img {
+                height: 80px;
+            }
+            h2 {
+                font-size: 24px;
+            }
+            .go-back-button {
+                margin: 0;
+                justify-content: center;
+            }
+        }
+        @media (max-width: 480px) {
+            .welcome-text {
+                font-size: 14px;
+                margin-right: 10px;
+            }
+            .nav-buttons button {
+                font-size: 8px;
+                padding: 0 10px;
+                height: 25px;
+            }
+            .go-back-button button {
+                font-size: 14px;
+                height: 35px;
+                padding: 5px 15px;
+                margin: 5px;
+            }
+            table, th, td {
+                font-size: 12px;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
+            .header img {
+                height: 60px;
+            }
+            .contact-info p {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="left">
+        <p class="welcome-text" id="welcomeText">¡Bienvenido, Usuario! – </p>
+    </div>
+    <div class="right">
+        <button onclick="location.href='Login_Business.html'">Cerrar Sesión</button>
+    </div>
+</div>
+
+<div class="header">
+    <div>
+        <h1>Productos Sory</h1>
+        <div class="contact-info">
+            <p><i class="fas fa-map-pin"></i> Managua, Nicaragua</p>
+            <p><i class="fab fa-whatsapp"></i> (505) 7625-5565</p>
+            <p><i class="fab fa-instagram"></i> Instagram: ProductosSory.nic</p>
+        </div>
+    </div>
+    <img src="ProductoSory-removebg-preview.png" alt="Productos Sory">
+</div>
+
+<h2>Inventario</h2>
+
+<div class="button-group">
+    <button class="add-button" onclick="showAddInventoryModal()">Agregar al Inventario</button>
+    <button class="export-button" onclick="exportToCSV()">Exportar como CSV</button>
+    <button class="import-button" onclick="importCSV()">Importar CSV</button>
+</div>
+
+<table class="inventory-table" id="inventoryTable">
+    <thead>
+        <tr>
+            <th>Código de Producto</th>
+            <th>Nombre del Producto</th>
+            <th>Cantidad en Stock</th>
+            <th>Unidades Vendidas</th>
+            <th>Cantidad en Inventario</th>
+            <th>Precio</th>
+            <th>Precio de Venta</th>
+            <th>Margen</th>
+            <th>Última Fecha de Stock</th>
+            <th>Historial de Stock</th>
+            <th>Imagen</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Los datos del inventario se poblarán aquí dinámicamente -->
+    </tbody>
+</table>
+
+<div class="go-back-button">
+    <button onclick="history.back()">Volver</button>
+</div>
+
+<!-- Estructura del Modal de Historial de Stock -->
+<div id="stockHistoryModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Historial de Stock</h2>
+            <span onclick="closeModal('stockHistoryModal')" style="cursor:pointer">&times;</span>
+        </div>
+        <div id="stockHistoryContent"></div>
+        <div class="modal-footer">
+            <button onclick="closeModal('stockHistoryModal')">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Estructura del Modal de Agregar al Inventario -->
+<div id="addInventoryModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Agregar al Inventario</h2>
+            <span onclick="closeModal('addInventoryModal')" style="cursor:pointer">&times;</span>
+        </div>
+        <div class="form-group">
+            <label for="addOption">Opción de Agregar</label>
+            <select id="addOption" onchange="toggleAddOption()">
+                <option value="new">Agregar Nuevo</option>
+                <option value="existing">Agregar a Existente</option>
+            </select>
+        </div>
+        <div id="existingFields" style="display:none;">
+            <div class="form-group">
+                <label for="existingProductName">Nombre del Producto</label>
+                <select id="existingProductName" onchange="populateExistingFields()">
+                    <!-- Las opciones se poblarán dinámicamente -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="existingQuantity">Cantidad</label>
+                <input type="number" id="existingQuantity">
+            </div>
+            <div class="form-group">
+                <label for="existingPrice">Precio</label>
+                <input type="number" id="existingPrice" step="0.01" disabled>
+            </div>
+            <div class="form-group">
+                <label for="existingRetailPrice">Precio de Venta</label>
+                <input type="number" id="existingRetailPrice" step="0.01" disabled>
+            </div>
+        </div>
+        <div id="newFields">
+            <div class="form-group">
+                <label for="productName">Nombre del Producto</label>
+                <input type="text" id="productName">
+            </div>
+            <div class="form-group">
+                <label for="quantity">Cantidad</label>
+                <input type="number" id="quantity">
+            </div>
+            <div class="form-group">
+                <label for="price">Precio</label>
+                <input type="number" id="price" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="retailPrice">Precio de Venta</label>
+                <input type="number" id="retailPrice" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="productImage">Imagen del Producto</label>
+                <input type="file" id="productImage">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button onclick="addToInventory()">Agregar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Estructura del Modal de Editar Inventario -->
+<div id="editInventoryModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Editar Inventario</h2>
+            <span onclick="closeModal('editInventoryModal')" style="cursor:pointer">&times;</span>
+        </div>
+        <div class="form-group">
+            <label for="editProductName">Nombre del Producto</label>
+            <input type="text" id="editProductName">
+        </div>
+        <div class="form-group">
+            <label for="editQuantity">Cantidad</label>
+            <input type="number" id="editQuantity">
+        </div>
+        <div class="form-group">
+            <label for="editPrice">Precio</label>
+            <input type="number" id="editPrice" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="editRetailPrice">Precio de Venta</label>
+            <input type="number" id="editRetailPrice" step="0.01">
+        </div>
+        <div class="modal-footer">
+            <button onclick="saveEdit()">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Estructura del Modal de Ver Imagen -->
+<div id="viewImageModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Imagen del Producto</h2>
+            <span onclick="closeModal('viewImageModal')" style="cursor:pointer">&times;</span>
+        </div>
+        <div class="text-center">
+            <img id="productImageView" src="" alt="Imagen del Producto" style="max-width: 100%; border-radius: 10px;">
+        </div>
+        <div class="modal-footer">
+            <button onclick="closeModal('viewImageModal')">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<input type="file" id="fileInput" style="display: none;" accept=".csv">
+
+<script>
+    let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+    let editIndex = null;
+
+    function saveInventoryToLocalStorage() {
+        localStorage.setItem('inventory', JSON.stringify(inventory));
+    }
+
+    function toggleAddOption() {
+        const addOption = document.getElementById('addOption').value;
+        if (addOption === 'existing') {
+            document.getElementById('existingFields').style.display = 'block';
+            document.getElementById('newFields').style.display = 'none';
+            populateExistingProductNames();
+        } else {
+            document.getElementById('existingFields').style.display = 'none';
+            document.getElementById('newFields').style.display = 'block';
+        }
+    }
+
+    function populateExistingProductNames() {
+        const existingProductName = document.getElementById('existingProductName');
+        existingProductName.innerHTML = ''; // Clear existing options
+        inventory.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.productName;
+            option.textContent = item.productName;
+            existingProductName.appendChild(option);
+        });
+    }
+
+    function populateExistingFields() {
+        const productName = document.getElementById('existingProductName').value;
+        const product = inventory.find(item => item.productName === productName);
+        if (product) {
+            document.getElementById('existingPrice').value = product.price;
+            document.getElementById('existingRetailPrice').value = product.retailPrice;
+        } else {
+            document.getElementById('existingPrice').value = '';
+            document.getElementById('existingRetailPrice').value = '';
+        }
+    }
+
+    function addToInventory() {
+        const addOption = document.getElementById('addOption').value;
+        let productName, quantity, price, retailPrice, image;
+
+        if (addOption === 'existing') {
+            productName = document.getElementById('existingProductName').value;
+            quantity = parseInt(document.getElementById('existingQuantity').value.trim(), 10);
+            price = parseFloat(document.getElementById('existingPrice').value.trim());
+            retailPrice = parseFloat(document.getElementById('existingRetailPrice').value.trim());
+        } else {
+            productName = document.getElementById('productName').value.trim();
+            quantity = parseInt(document.getElementById('quantity').value.trim(), 10);
+            price = parseFloat(document.getElementById('price').value.trim());
+            retailPrice = parseFloat(document.getElementById('retailPrice').value.trim());
+            image = document.getElementById('productImage').files[0];
+        }
+
+        // Debugging statements to check the values
+        console.log('Add Option:', addOption);
+        console.log('Product Name:', productName);
+        console.log('Quantity:', quantity);
+        console.log('Price:', price);
+        console.log('Retail Price:', retailPrice);
+        console.log('Image:', image);
+
+        if (!productName || isNaN(quantity) || quantity <= 0 || isNaN(price) || price <= 0 || isNaN(retailPrice) || retailPrice <= 0 || (addOption === 'new' && !image)) {
+            alert('Por favor, ingrese detalles válidos.');
+            return;
+        }
+
+        const margin = retailPrice - price;
+        const now = new Date().toISOString().split('T')[0];
+
+        if (addOption === 'existing') {
+            for (let i = 0; i < inventory.length; i++) {
+                if (inventory[i].productName === productName) {
+                    inventory[i].stockQuantity += quantity;
+                    inventory[i].inStockQuantity += quantity;
+                    inventory[i].price = price;
+                    inventory[i].retailPrice = retailPrice;
+                    inventory[i].margin = margin;
+                    inventory[i].lastStockDate = now;
+                    inventory[i].stockHistory.push({ date: now, quantity: quantity });
+                    saveInventoryToLocalStorage();
+                    updateInventoryTable();
+                    closeModal('addInventoryModal');
+                    return;
+                }
+            }
+        }
+
+        const productCode = generateProductCode();
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            inventory.push({
+                productCode: productCode,
+                productName: productName,
+                stockQuantity: quantity,
+                unitsSold: 0,
+                inStockQuantity: quantity,
+                price: price,
+                retailPrice: retailPrice,
+                margin: margin,
+                lastStockDate: now,
+                stockHistory: [{ date: now, quantity: quantity }],
+                imageURL: e.target.result
+            });
+
+            saveInventoryToLocalStorage();
+            updateInventoryTable();
+            closeModal('addInventoryModal');
+        };
+
+        reader.readAsDataURL(image);
+    }
+
+    function saveEdit() {
+        if (editIndex !== null) {
+            const productName = document.getElementById('editProductName').value.trim();
+            const quantity = parseInt(document.getElementById('editQuantity').value.trim(), 10);
+            const price = parseFloat(document.getElementById('editPrice').value.trim());
+            const retailPrice = parseFloat(document.getElementById('editRetailPrice').value.trim());
+
+            if (!productName || isNaN(quantity) || quantity <= 0 || isNaN(price) || price <= 0 || isNaN(retailPrice) || retailPrice <= 0) {
+                alert('Por favor, ingrese detalles válidos.');
+                return;
+            }
+
+            const margin = retailPrice - price;
+
+            inventory[editIndex].productName = productName;
+            inventory[editIndex].stockQuantity = quantity;
+            inventory[editIndex].inStockQuantity = quantity;
+            inventory[editIndex].price = price;
+            inventory[editIndex].retailPrice = retailPrice;
+            inventory[editIndex].margin = margin;
+
+            saveInventoryToLocalStorage();
+            updateInventoryTable();
+            closeModal('editInventoryModal');
+        }
+    }
+
+    function confirmEditOrDelete(index) {
+        const userResponse = confirm('¿Desea editar o eliminar esta fila? Haga clic en Aceptar para editar, Cancelar para eliminar.');
+        if (userResponse) {
+            showEditInventoryModal(index);
+        } else {
+            const confirmDelete = confirm('¿Desea eliminar permanentemente esta fila? Sí/No');
+            if (confirmDelete) {
+                inventory.splice(index, 1);
+                saveInventoryToLocalStorage();
+                updateInventoryTable();
+            }
+        }
+    }
+
+    function updateInventoryTable() {
+        const inventoryTableBody = document.getElementById('inventoryTable').getElementsByTagName('tbody')[0];
+        inventoryTableBody.innerHTML = '';
+
+        inventory.forEach((item, index) => {
+            const row = inventoryTableBody.insertRow();
+            row.insertCell(0).textContent = item.productCode;
+            row.insertCell(1).textContent = item.productName;
+            row.insertCell(2).textContent = item.stockQuantity;
+            row.insertCell(3).textContent = item.unitsSold;
+            row.insertCell(4).textContent = item.inStockQuantity;
+            row.insertCell(5).textContent = `C$${item.price.toFixed(2)}`;
+            row.insertCell(6).textContent = `C$${item.retailPrice.toFixed(2)}`;
+            row.insertCell(7).textContent = `C$${item.margin.toFixed(2)}`;
+            row.insertCell(8).textContent = item.lastStockDate;
+            row.insertCell(9).innerHTML = `<button onclick="showStockHistory('${item.productCode}')">Ver Historial</button>`;
+            row.insertCell(10).innerHTML = `<button onclick="viewImage('${item.imageURL}')">Ver Imagen</button>`;
+            row.insertCell(11).innerHTML = `<button onclick="confirmEditOrDelete(${index})">Editar/Eliminar</button>`;
+        });
+    }
+
+    function viewImage(imageURL) {
+        const productImageView = document.getElementById('productImageView');
+        productImageView.src = imageURL;
+        document.getElementById('viewImageModal').style.display = 'block';
+    }
+
+    function showStockHistory(productCode) {
+        const product = inventory.find(item => item.productCode === productCode);
+        const history = product ? product.stockHistory : [];
+        const historyContent = history.map(entry => `<div>${entry.date} - ${entry.quantity}</div>`).join('');
+        document.getElementById('stockHistoryContent').innerHTML = historyContent;
+        document.getElementById('stockHistoryModal').style.display = 'block';
+    }
+
+    function showAddInventoryModal() {
+        document.getElementById('addInventoryModal').style.display = 'block';
+    }
+
+    function showEditInventoryModal(index) {
+        const product = inventory[index];
+        document.getElementById('editProductName').value = product.productName;
+        document.getElementById('editQuantity').value = product.stockQuantity;
+        document.getElementById('editPrice').value = product.price;
+        document.getElementById('editRetailPrice').value = product.retailPrice;
+        editIndex = index;
+        document.getElementById('editInventoryModal').style.display = 'block';
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    function generateProductCode() {
+        return Math.floor(Math.random() * 90000) + 10000;
+    }
+
+    function exportToCSV() {
+        const rows = [
+            ['Código de Producto', 'Nombre del Producto', 'Cantidad en Stock', 'Unidades Vendidas', 'Cantidad en Inventario', 'Precio', 'Precio de Venta', 'Margen', 'Última Fecha de Stock']
+        ];
+
+        inventory.forEach(item => {
+            rows.push([
+                item.productCode,
+                item.productName,
+                item.stockQuantity,
+                item.unitsSold,
+                item.inStockQuantity,
+                item.price,
+                item.retailPrice,
+                item.margin,
+                item.lastStockDate
+            ]);
+        });
+
+        let csvContent = "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "inventario.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    function importCSV() {
+        document.getElementById('fileInput').click();
+    }
+
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const content = e.target.result;
+            const lines = content.split('\n').slice(1);
+
+            lines.forEach(line => {
+                if (line.trim()) {
+                    const [productCode, productName, stockQuantity, unitsSold, inStockQuantity, price, retailPrice, margin, lastStockDate] = line.split(',');
+                    const existingProduct = inventory.find(item => item.productCode === productCode);
+                    if (existingProduct) {
+                        existingProduct.productName = productName;
+                        existingProduct.stockQuantity = parseInt(stockQuantity, 10);
+                        existingProduct.unitsSold = parseInt(unitsSold, 10);
+                        existingProduct.inStockQuantity = parseInt(inStockQuantity, 10);
+                        existingProduct.price = parseFloat(price);
+                        existingProduct.retailPrice = parseFloat(retailPrice);
+                        existingProduct.margin = parseFloat(margin);
+                        existingProduct.lastStockDate = lastStockDate;
+                    } else {
+                        inventory.push({
+                            productCode,
+                            productName,
+                            stockQuantity: parseInt(stockQuantity, 10),
+                            unitsSold: parseInt(unitsSold, 10),
+                            inStockQuantity: parseInt(inStockQuantity, 10),
+                            price: parseFloat(price),
+                            retailPrice: parseFloat(retailPrice),
+                            margin: parseFloat(margin),
+                            lastStockDate,
+                            stockHistory: []
+                        });
+                    }
+                }
+            });
+
+            saveInventoryToLocalStorage();
+            updateInventoryTable();
+        };
+
+        reader.readAsText(file);
+    });
+
+    updateDateTime();
+    updateInventoryTable();
+    saveInventoryToLocalStorage();
+
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('stockHistoryModal')) {
+            closeModal('stockHistoryModal');
+        } else if (event.target == document.getElementById('addInventoryModal')) {
+            closeModal('addInventoryModal');
+        } else if (event.target == document.getElementById('editInventoryModal')) {
+            closeModal('editInventoryModal');
+        } else if (event.target == document.getElementById('viewImageModal')) {
+            closeModal('viewImageModal');
+        }
+    }
+
+    function updateDateTime() {
+        const welcomeText = document.getElementById('welcomeText');
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        welcomeText.textContent += now.toLocaleDateString('en-US', options);
+    }
+</script>
+
+</body>
+</html>

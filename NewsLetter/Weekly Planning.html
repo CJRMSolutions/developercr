@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap Calendar 2024</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e4f1fe; /* Using first color */
+            color: #22313f; /* Using third color */
+        }
+
+        header {
+            background-color: #34495e; /* Using fourth color */
+            padding: 20px 0;
+            text-align: left;
+            border-bottom: 1px solid #8dc6ff; /* Using second color */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .logo {
+            max-height: 50px;
+            margin-right: 20px;
+        }
+
+        .header-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-text h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #8dc6ff; /* Using second color */
+        }
+
+        .header-text p {
+            margin: 5px 0 0;
+            font-size: 1em;
+            color: #e4f1fe; /* Using first color */
+        }
+
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .roadmap {
+            width: 100%;
+            background-color: #fff; /* White background */
+            padding: 20px;
+            border-radius: 8px; /* Adds rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adds a slight shadow */
+        }
+
+        .weekdays {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .weekday {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #34495e; /* Using fourth color */
+            background-color: #172b40; /* Using second color */
+            color: #f5f6f6; /* Using third color */
+            border-radius: 4px;
+            margin: 0 5px; /* Add gap between weekdays */
+        }
+
+        .project-header, .actions-header {
+            flex: 0 0 120px; /* Increased width */
+            text-align: center;
+            background-color: #193047; /* Using second color */
+            color: #f9fbfc; /* Using third color */
+            padding: 5px 10px;
+            font-weight: bold;
+            border: 1px solid #34495e; /* Using fourth color */
+            border-radius: 4px;
+        }
+
+        .projects {
+            margin-top: 20px;
+            position: relative;
+            width: 100%;
+        }
+
+        .project {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            position: relative;
+            justify-content: space-between;
+        }
+
+        .project-name {
+            width: 120px; /* Adjusted to match the header width */
+            padding-right: 10px;
+            font-weight: bold;
+            color: #34495e; /* Using fourth color */
+        }
+
+        .project-bar {
+            position: absolute;
+            height: 20px;
+            background-color: #1e5e53; /* Using second color */
+            border-radius: 10px;
+            top: 0;
+            bottom: 0;
+        }
+
+        .actions {
+            width: 120px; /* Adjusted to match the header width */
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .actions button {
+            padding: 5px 10px;
+            background-color: #34495e; /* Using fourth color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .actions button:hover {
+            background-color: #22313f; /* Darker shade for hover effect */
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #1b2f43; /* Using second color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #5ba1d3; /* Darker shade for hover effect */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="NO_Image.png" alt="Logo" class="logo">
+            <div class="header-text">
+                <h1>Customer Retention FW32 2024</h1>
+                <p>Planned Tasks 8/4 - 8/10</p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="roadmap">
+            <div class="weekdays">
+                <div class="weekday project-header">Projects</div>
+                <div class="weekday">8/4</div>
+                <div class="weekday">8/5</div>
+                <div class="weekday">8/6</div>
+                <div class="weekday">8/7</div>
+                <div class="weekday">8/8</div>
+                <div class="weekday">8/9</div>
+                <div class="weekday">8/10</div>
+                <div class="weekday actions-header">Actions</div>
+            </div>
+            <div class="projects" id="projects-container">
+                <!-- Projects will be dynamically inserted here -->
+            </div>
+            <button onclick="openAddPopup()">Add New Project</button>
+        </section>
+    </main>
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>Edit Project</h2>
+            <form id="edit-form">
+                <input type="hidden" id="edit-project-id">
+                <label for="edit-project-name">Project Name:</label>
+                <input type="text" id="edit-project-name" name="edit-project-name"><br>
+                <label for="edit-start-date">Start Date:</label>
+                <input type="date" id="edit-start-date" name="edit-start-date"><br>
+                <label for="edit-end-date">End Date:</label>
+                <input type="date" id="edit-end-date" name="edit-end-date"><br>
+                <button type="button" onclick="saveProject()">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="add-popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closeAddPopup()">&times;</span>
+            <h2>Add New Project</h2>
+            <form id="add-form">
+                <label for="add-project-name">Project Name:</label>
+                <input type="text" id="add-project-name" name="add-project-name"><br>
+                <label for="add-start-date">Start Date:</label>
+                <input type="date" id="add-start-date" name="add-start-date"><br>
+                <label for="add-end-date">End Date:</label>
+                <input type="date" id="add-end-date" name="add-end-date"><br>
+                <button type="button" onclick="addProject()">Add Project</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let projects = [
+            { id: 1, name: "Update Website", startDate: "2024-08-04", endDate: "2024-08-06" },
+            { id: 2, name: "Customer Survey", startDate: "2024-08-05", endDate: "2024-08-09" },
+            { id: 3, name: "New Feature Launch", startDate: "2024-08-06", endDate: "2024-08-10" }
+        ];
+
+        function openEditPopup(id) {
+            const project = projects.find(p => p.id === id);
+            if (project) {
+                document.getElementById('edit-project-id').value = project.id;
+                document.getElementById('edit-project-name').value = project.name;
+                document.getElementById('edit-start-date').value = project.startDate;
+                document.getElementById('edit-end-date').value = project.endDate;
+                document.getElementById('popup').style.display = 'flex';
+            }
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        function openAddPopup() {
+            document.getElementById('add-popup').style.display = 'flex';
+        }
+
+        function closeAddPopup() {
+            document.getElementById('add-popup').style.display = 'none';
+        }
+
+        function saveProject() {
+            const id = parseInt(document.getElementById('edit-project-id').value, 10);
+            const project = projects.find(p => p.id === id);
+            if (project) {
+                project.name = document.getElementById('edit-project-name').value;
+                project.startDate = document.getElementById('edit-start-date').value;
+                project.endDate = document.getElementById('edit-end-date').value;
+                renderProjects();
+                closePopup();
+            }
+        }
+
+        function addProject() {
+            const newProject = {
+                id: projects.length + 1,
+                name: document.getElementById('add-project-name').value,
+                startDate: document.getElementById('add-start-date').value,
+                endDate: document.getElementById('add-end-date').value
+            };
+            projects.push(newProject);
+            renderProjects();
+            closeAddPopup();
+        }
+
+        function deleteProject(id) {
+            projects = projects.filter(p => p.id !== id);
+            renderProjects();
+        }
+
+        function renderProjects() {
+            const projectsContainer = document.getElementById('projects-container');
+            projectsContainer.innerHTML = '';
+
+            projects.forEach(project => {
+                const start = new Date(project.startDate);
+                const end = new Date(project.endDate);
+                const startOfWeek = new Date('2024-08-04'); // Start of the week
+
+                const startDay = Math.max((start - startOfWeek) / (1000 * 60 * 60 * 24), 0); // Calculate days from start of the week
+                const endDay = Math.min((end - startOfWeek) / (1000 * 60 * 60 * 24), 6);
+
+                const projectDiv = document.createElement('div');
+                projectDiv.className = 'project';
+                projectDiv.dataset.id = project.id;
+
+                const projectNameDiv = document.createElement('div');
+                projectNameDiv.className = 'project-name';
+                projectNameDiv.textContent = project.name;
+
+                const projectBarDiv = document.createElement('div');
+                projectBarDiv.className = 'project-bar';
+                projectBarDiv.id = `project-bar-${project.id}`;
+                projectBarDiv.style.left = `${(startDay / 7) * 100}%`;
+                projectBarDiv.style.width = `${((endDay - startDay + 1) / 7) * 100}%`;
+
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'actions';
+
+                const editButton = document.createElement('button');
+                editButton.className = 'edit-btn';
+                editButton.textContent = 'Edit';
+                editButton.onclick = () => openEditPopup(project.id);
+
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'delete-btn';
+                deleteButton.textContent = 'Delete';
+                deleteButton.onclick = () => deleteProject(project.id);
+
+                actionsDiv.appendChild(editButton);
+                actionsDiv.appendChild(deleteButton);
+
+                projectDiv.appendChild(projectNameDiv);
+                projectDiv.appendChild(projectBarDiv);
+                projectDiv.appendChild(actionsDiv);
+
+                projectsContainer.appendChild(projectDiv);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', renderProjects);
+    </script>
+</body>
+</html>
+
+
+
+
+
+

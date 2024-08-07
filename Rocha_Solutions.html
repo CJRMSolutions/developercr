@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Technology</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #121212;
+            color: #fff;
+        }
+
+        header {
+            background-color: #1e1e1e;
+            border-bottom: 1px solid #333;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            height: auto;
+            width: auto;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo span {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6600;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            margin-left: 15px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .nav-login {
+            border: 1px solid #fff;
+            color: #fff;
+        }
+
+        .nav-demo {
+            background-color: #3366ff;
+            color: white;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #1e1e1e;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #bbb;
+        }
+
+        .hero-buttons {
+            margin-top: 20px;
+        }
+
+        .hero-buttons .btn,
+        .hero-buttons .btn-outline {
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        .btn {
+            background-color: #3366ff;
+            color: white;
+        }
+
+        .btn-outline {
+            border: 1px solid #3366ff;
+            color: #3366ff;
+        }
+
+        .starter-kits {
+            margin-top: 20px;
+        }
+
+        .starter-kits a {
+            color: #3366ff;
+            text-decoration: none;
+        }
+
+        .business-type {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .business-type h2 {
+            font-size: 24px;
+        }
+
+        .business-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .option {
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid #333;
+            border-radius: 20px;
+            color: #fff;
+        }
+
+        .option.active,
+        .option:hover {
+            background-color: #3366ff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="picture1.png" alt="Logo">
+                </div>
+            <ul>
+                <li><a href="#">Restaurant Types</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Resources</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="#" class="nav-login">Login</a>
+                <a href="#" class="nav-demo">Get a Demo</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Built for restaurants. Built for you.</h1>
+            <p>112,000* restaurants like yours trust Toast with their technology. From POS to payroll, we take care of it all – so you can focus on what you do best.</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn">Get a Demo</a>
+                <a href="#" class="btn-outline">See Pricing</a>
+            </div>
+            <p class="starter-kits">Under 10 employees? <a href="#">Explore Starter Kits →</a></p>
+        </section>
+
+        <section class="business-type">
+            <h2>Choose your business type</h2>
+            <div class="business-options">
+                <a href="#" class="option active">Cafe/Bakery</a>
+                <a href="#" class="option">Casual Dining</a>
+                <a href="#" class="option">Pizzeria</a>
+                <a href="#" class="option">Fine Dining</a>
+                <a href="#" class="option">Bar/Lounge</a>
+                <a href="#" class="option">Brewery</a>
+                <a href="#" class="option">Food Truck</a>
+                <a href="#" class="option">Hotel</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const options = document.querySelectorAll(".business-options .option");
+
+            options.forEach(option => {
+                option.addEventListener("click", function() {
+                    options.forEach(opt => opt.classList.remove("active"));
+                    this.classList.add("active");
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+

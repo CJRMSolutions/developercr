@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 6px; /* Reduced padding to make the input fields smaller */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 12px; /* Reduced font size */
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #e7970d;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 200px;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        .image-container {
+            margin-bottom: 20px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="image-container">
+            <img src="Moldeate_Logo.png" alt="Moldeate Nicaragua">
+        </div>
+        <h2>Login</h2>
+        <form id="login-form">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <script>
+        // Sample user data (replace with actual database or backend logic)
+        const users = [
+            { username: 'admin', password: 'admin', homepage: 'Home_Page.html' },
+            { username: 'user', password: 'user', homepage: 'Place-an-order.html' },
+            { username: 'user1', password: 'user1', homepage: 'Place-an-order.html' }
+        ];
+
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple validation (replace with actual validation logic)
+            const authenticatedUser = users.find(user => user.username === username && user.password === password);
+
+            if (authenticatedUser) {
+                // Redirect to the user's homepage
+                window.location.href = authenticatedUser.homepage;
+            } else {
+                alert('Invalid username or password');
+            }
+        });
+    </script>
+</body>
+</html>
+

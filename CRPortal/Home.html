@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Service Home</title>
+    <link rel="icon" href="Stan.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header .logo img {
+            width: 70px;
+            height: 35px;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        header nav a {
+            margin-left: 20px;
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+        }
+        header nav a:hover {
+            color: #f05454;
+        }
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .menu-content {
+            display: flex;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            flex-direction: column;
+        }
+        .dropdown-content a {
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+        .dropdown-content a:hover {
+            background-color: #f4f4f9;
+        }
+        .menu-content .dropdown:hover .dropdown-content {
+            display: flex;
+        }
+        @media (max-width: 768px) {
+            header {
+                padding: 20px 40px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .menu-content {
+                display: none;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                background-color: #fff;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .menu-content a {
+                margin: 10px 0;
+                padding: 10px;
+                border-bottom: 1px solid #f4f4f9;
+            }
+            .menu-content a:last-child {
+                border-bottom: none;
+            }
+            .menu-content.show {
+                display: flex;
+            }
+            .dropdown-content {
+                position: relative;
+            }
+        }
+        @media (max-width: 480px) {
+            header {
+                padding: 20px 20px;
+            }
+            .menu-content {
+                width: 100%;
+                right: 0;
+            }
+        }
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 100px 40px;
+            background-color: #f9f9f9;
+        }
+        .hero .text {
+            max-width: 50%;
+            flex: 1;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin: 0;
+        }
+        .hero h1 span {
+            color: #f05454;
+        }
+        .hero p {
+            margin: 20px 0;
+            font-size: 18px;
+        }
+        .hero .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .hero button {
+            position: relative;
+            overflow: hidden;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #f05454;
+            background-color: transparent;
+            border: 2px solid #f05454;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            flex: 1;
+            transition: color 0.4s ease-in-out, background-color 0.4s ease-in-out;
+            z-index: 1;
+        }
+        .hero button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background-color: #f05454;
+            transition: all 0.4s ease-in-out;
+            z-index: -1;
+        }
+        .hero button:hover::before {
+            left: 0;
+        }
+        .hero button:hover {
+            color: #fff;
+        }
+        .hero .image {
+            max-width: 40%;
+            flex: 1;
+            text-align: center;
+        }
+        .hero .image img {
+            width: 100%;
+            border-radius: 10px;
+            max-width: 300px;
+            height: auto;
+        }
+        .iframe-container {
+            width: 100%;
+            padding: 20px 40px;
+            box-sizing: border-box;
+        }
+        .iframe-container iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+        @media (max-width: 768px) {
+            .hero {
+                padding: 50px 20px;
+            }
+            .hero h1 {
+                font-size: 36px;
+            }
+            .hero p {
+                font-size: 16px;
+            }
+            .iframe-container {
+                padding: 20px 20px;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero {
+                padding: 20px;
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero .text, .hero .image {
+                max-width: 100%;
+            }
+            .hero h1 {
+                font-size: 28px;
+            }
+            .hero p {
+                font-size: 14px;
+            }
+            .hero button {
+                width: 100%;
+                padding: 10px;
+                font-size: 14px;
+                margin: 5px 0;
+            }
+            .iframe-container {
+                padding: 20px;
+            }
+        }
+        .top-stories {
+            margin: 40px auto;
+            max-width: 80%;
+            overflow: hidden;
+            position: relative;
+        }
+        .top-stories h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .carousel-item {
+            min-width: 300px;
+            margin: 0 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+        }
+        .carousel-item img {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .carousel-controls button {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .carousel-controls button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .greeting-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: #f8f5f5;
+            color: #2b2a2a;
+            font-size: 25px;
+            height: 250px;
+        }
+        .greeting-banner-text {
+            flex: 1;
+        }
+        .greeting-banner img {
+            height: 100%;
+            margin-left: 20px;
+            border-radius: 5px;
+        }
+        .important-links, .platforms {
+            background-color: #e6e5e5;
+            padding: 20px 40px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .important-links h2, .platforms h2 {
+            margin-bottom: 20px;
+        }
+        .important-links .links, .platforms .links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .important-links .links a, .platforms .links a {
+            color: #e5e3e3;
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #232c4e;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .important-links .links a:hover, .platforms .links a:hover {
+            background-color: #777;
+        }
+        footer {
+            background-color: #646363;
+            color: #fff;
+            text-align: center;
+            padding: 40px 0;
+        }
+        footer .quick-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        footer .quick-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #fefcfc;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        footer .quick-links a:hover {
+            background-color: #777;
+        }
+        footer {
+            background-color: #4f4e4e;
+            color: #fff;
+            height: 20px;
+            text-align: center;
+            padding: 0;
+            line-height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="NO_Image.png" alt="Logo">
+        </div>
+        <nav>
+            <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+            <div class="menu-content" id="menu-content">
+                <a href="Home.html">Home</a>
+                <div class="dropdown">
+                    <a href="#experience">Administrative</a>
+                    <div class="dropdown-content">
+                        <a href="Attendance.html">Attendance</a>
+                        <a href="Performance Bonus copy.html">Performance Bonus</a>
+                        <a href="Roster.html">Roster</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#experience">Customer Service</a>
+                    <div class="dropdown-content">
+                        <a href="CRDailyPerformance.html">Hourly Performance</a>
+                        <a href="CCBusinessReview.html">CC Business Review</a>
+                        <a href="Quality.html">Quality</a>
+                        <a href="CSAT.html">CSAT</a>
+                        <a href="Performance Ranking.html">Performance Ranking</a>
+                        <a href="NotSchedules.html">Not Schedules/Store Information</a>
+                        <a href="CSResolution.html">Customer Resolution</a>
+                        <a href="CSResolution Corporate.html">Customer Resolution - Corporate</a>
+                        <a href="CSResolution Franchise.html">Customer Resolution - Franchise</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="https://nowoptics.sharepoint.com/sites/CustomerRetention">QA Site</a>
+                </div>
+                <div class="dropdown">
+                    <a href="#experience">Support Team</a>
+                    <div class="dropdown-content">
+                        <a href="STDashboard.html">Support Team Dashboard</a>
+                        <a href="SocialKeyWords.html">GMB Reviews Keywords</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#contact">Order Status</a>
+                    <div class="dropdown-content">
+                        <a href="OrderStatus.html">Orders Dashboard</a>
+                        <a href="HaltomCity.html">Haltom City</a>
+                        <a href="Status Tool.html">Status Tool</a>
+                    </div>
+                </div>
+                <a href="#contact">WorkFlows</a>
+            </div>
+        </nav>
+    </header>
+    <section class="hero">
+        <div class="text">
+            <p>Welcome to the</p>
+            <h1>Customer Retention <span>Portal</span></h1>
+            <p>This is your new centralized portal to help you make eye care easy.</p>
+            <div class="buttons">
+                <button onclick="window.open('https://nowoptics.service-now.com/now/nav/ui/classic/params/target/%24pa_dashboard.do%3Fsysparm_dashboard%3D18b1f472533130104c90ddeeff7b12a6', '_blank')">Tickets</button>
+                <button onclick="window.open('https://pilot.stantonoptical.com/', '_blank')">IRIS</button>
+                <button onclick="window.open('https://zeuseec.com/Web/en-US/Account/Login?returnUrl=%2FWeb%2Fen-US%2FPatientBrowser', '_blank')">Zeus</button>
+                <button onclick="window.open('https://login.five9.com/', '_blank')">Five9</button>
+            </div>
+        </div>
+        <div class="image">
+            <img src="Screenshot_2024-03-14_104013-removebg-preview.png" alt="Caro Rocha">
+        </div>
+    </section> 
+
+    <section class="top-stories">
+        <h2>Customer Retention Weekly Reports</h2>
+        <div class="carousel" id="carousel">
+            <a href="https://nowoptics.sharepoint.com/:w:/r/sites/CAR/Shared%20Documents/Weekly%20Reports/Customer%20Service%20Performance.docx?d=w9c69b585915c48f48f72f94985f94f9d&csf=1&web=1&e=iL6EWy"
+                class="carousel-item" target="_blank">
+                <img src="CRPerf.png" alt="Story 3">
+                <h3>Customer Service Performance</h3>
+                <p>Overview of the previous week customer service performance.</p>
+            </a>
+            <a href="https://nowoptics.sharepoint.com/:w:/r/sites/CAR/Shared%20Documents/Weekly%20Reports/Support%20Team%20Performance.docx?d=w6e11c8c82480466b99f362ae99c48b66&csf=1&web=1&e=aO0lc0"
+                class="carousel-item" target="_blank">
+                <img src="STRecap.png" alt="Story 3">
+                <h3>Support Team Performance</h3>
+                <p>Overview of the previous week support team performance.</p>
+            </a>
+            <a href="https://nowoptics.sharepoint.com/:w:/r/sites/CAR/Shared%20Documents/Weekly%20Reports/Quality%20%26%20CSAT%20Recap.docx?d=wc7657d5eaf684d3895f59fceceb353b9&csf=1&web=1&e=dWadxY"
+                class="carousel-item" target="_blank">
+                <img src="QA&CSAT.png" alt="Story 3">
+                <h3>Quality & CSAT</h3>
+                <p>Overview of Previous Week QA & CSAT Performance</p>
+            </a>
+            <a href="https://nowoptics.sharepoint.com/:w:/r/sites/CAR/Shared%20Documents/Weekly%20Reports/Weekly%20Corporate%20Resolution.docx?d=wba0e3b992357425b8eb73bd7389e3379&csf=1&web=1&e=YfmSx5"
+                class="carousel-item" target="_blank">
+                <img src="ResolutionCorp.png" alt="Story 1">
+                <h3>Corporate Resolution FW31</h3>
+                <p>Overview of Ticket Resolution.</p>
+            </a>
+            <a href="https://nowoptics.sharepoint.com/:w:/r/sites/CAR/Shared%20Documents/Weekly%20Reports/Weekly%20Franchise%20Resolution.docx?d=w3a0f7422116a449b88f1004e3f6c3181&csf=1&web=1&e=4Zrj8C"
+                class="carousel-item" target="_blank">
+                <img src="ResolutionFranch.png" alt="Story 2">
+                <h3>Franchise Resolution F31</h3>
+                <p>Overview of Resolution.</p>
+            </a>
+            <a href="https://nowoptics.sharepoint.com/:w:/r/sites/CAR/Shared%20Documents/Weekly%20Reports/OrderJourney%20Corporate.docx?d=w9da6ff0e7f034b62ac996d92eda139b0&csf=1&web=1&e=AQk9QT"
+                class="carousel-item" target="_blank">
+                <img src="OJCorp.png" alt="Story 3">
+                <h3>Order Journey Corporate</h3>
+                <p>Overview of Previous Week Order Status Performance</p>
+            </a>
+            <a href="https://nowoptics.sharepoint.com/:w:/r/sites/CAR/Shared%20Documents/Weekly%20Reports/OrderJourney%20Franchise.docx?d=wa480bfadfaf14e868bf5f73d75adc296&csf=1&web=1&e=UR3w90"
+                class="carousel-item" target="_blank">
+                <img src="OJFranch.png" alt="Story 3">
+                <h3>Order Journey Franchise</h3>
+                <p>Overview of Previous Week Order Status Performance</p>
+            </a>
+        </div>
+        <div class="carousel-controls">
+            <button id="prev">&#10094;</button>
+            <button id="next">&#10095;</button>
+        </div>
+    </section>
+
+    <section class="important-links">
+        <h2>Important Links</h2>
+        <div class="links">
+            <a href="https://stanton.atlassian.net/jira/core/projects/COJ/list" target="_blank">Jira</a>
+            <a href="https://nowoptics.sharepoint.com/:x:/s/BPOHRTeam/ESeLTmKUOmZNggRLL4PlbiABlGjb0Z9G-U33DNse8r3Kcw?e=6iPzc8&isSPOFile=1&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiI0OS8yNDAzMTQxNDcyMSIsIkhhc0ZlZGVyYXRlZFVzZXIiOmZhbHNlfQ%3D%3D"
+                target="_blank">MS-Payroll Calendar</a>
+            <a href="https://nowoptics-my.sharepoint.com/:x:/r/personal/kreyes_nowoptics_com/_layouts/15/Doc.aspx?sourcedoc=%7BA943798C-92D6-4DC6-9ED4-DF0EEB7BBCA3%7D&file=SOMEL%20-%20Periods%20&%20Quarters%20Calendar.xlsx=&wdOrigin=TEAMS-MAGLEV.p2p_ns.rwc&action=default&mobileredirect=true"
+                target="_blank">MS-Fiscal Calendar</a>
+            <a href="https://nowoptics.sharepoint.com/:x:/r/sites/CARLibrary/_layouts/15/Doc.aspx?sourcedoc=%7B87055560-FFA8-4C58-9F4D-09DD90E3F99F%7D&file=BPO%20Production%20Schedules%20Q3%202024.xlsx&nav=MTVfe0I4QjhCMEYyLTk1NzgtNDFCOS05MjkzLUMwMjg5NjlDMUM3MX0&action=default&mobileredirect=true"
+                target="_blank">MS-CR Schedules</a>
+            <a href="https://app.sproutsocial.com/login" target="_blank">Sprout</a>
+            <a href="https://proxy.businesstrack.com/manage/landing" target="_blank">Chargebacks</a>
+            <a href="https://www.carecreditprovidercenter.com/portal/login;jsessionid=9FFF2CF562378309C8443FA5FB2827CB?client_id=S6iqvYhlAMTusrgvfLPdOAWPF0MEWN8f&response_type=code&scope=read&redirect_uri=https%3A%2F%2Fwww.carecreditprovidercenter.com%2Fportal%2Flaunch"
+                target="_blank">Care Credit</a>
+            <a href="https://respond.bbb.org/login/?ReturnUrl=%2f%3fbbbid%3d66%26bid%3d0090090877&bbbid=66&bid=0090090877"
+                target="_blank">BBB</a>
+            <a href="https://ship5.shipstation.com/orders/awaiting-shipment" target="_blank">Shipstation</a>
+            <a href="https://api2.myrefractiveservices.com/loggedout.php" target="_blank">MyRefractiveServices</a>
+            <a href="https://training.knowbe4.com/ui/login?logout=true" target="_blank">KnowB4</a>
+            <a href="https://online.adp.com/signin/v1/?APPID=WFNPortal&productId=80e309c3-7085-bae1-e053-3505430b5495&returnURL=https://workforcenow.adp.com/&callingAppId=WFN&TARGET=-SM-https://workforcenow.adp.com/theme/admin.html" 
+            target="_blank">ADP</a>
+        </div>
+    </section>
+
+
+
+    <footer>
+        <p>&copy; 2024 Customer Retention Portal</p>
+    </footer>
+
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            var menuContent = document.getElementById('menu-content');
+            menuContent.classList.toggle('show');
+        });
+
+        const carousel = document.getElementById('carousel');
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+        let scrollAmount = 0;
+
+        nextButton.addEventListener('click', function () {
+            if (scrollAmount < carousel.scrollWidth - carousel.clientWidth) {
+                scrollAmount += carousel.clientWidth;
+                carousel.style.transform = `translateX(-${scrollAmount}px)`;
+            }
+        });
+
+        prevButton.addEventListener('click', function () {
+            if (scrollAmount > 0) {
+                scrollAmount -= carousel.clientWidth;
+                carousel.style.transform = `translateX(-${scrollAmount}px)`;
+            }
+        });
+
+        const greetingBannerText = document.getElementById('greeting-banner-text');
+        const today = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = today.toLocaleDateString('en-US', options);
+        greetingBannerText.textContent = `Welcome to the Customer Retention Portal - ${formattedDate} - Happy Reading`;
+    </script>
+</body>
+
+</html>
+
+
+
+
+

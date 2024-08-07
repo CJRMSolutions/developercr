@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inbox</title>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding-top: 0px;
+        }
+
+        .navbar {
+            position: fixed;
+            width: 100%;
+            background-color: #333;
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            top: 60px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .navbar li {
+            margin: 0 15px;
+            width: 150px;
+        }
+
+        .navbar a {
+            color: #f8f8f8;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+            display: block;
+            text-align: center;
+        }
+
+        .navbar a:hover {
+            color: orange;
+        }
+
+        .banner {
+            background-color: orange;
+            height: 60px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 999;
+        }
+
+        .welcome, .date {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .content {
+            text-align: left;
+            padding: 40px;
+            margin-top: 100px;
+        }
+
+        .filter-container {
+            margin-bottom: 20px;
+        }
+
+        .filter-container label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .filter-container select {
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .status-dropdown {
+            width: 100%;
+            padding: 8px;
+        }
+
+        .reply-button, .view-history-button, .delete-button {
+            background-color: orange;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .reply-button:hover, .view-history-button:hover, .delete-button:hover {
+            background-color: darkorange;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            z-index: 1001;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .popup textarea {
+            width: 100%;
+            height: 100px;
+        }
+
+        .popup button {
+            background-color: orange;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .popup button:hover {
+            background-color: darkorange;
+        }
+
+        .chat-history {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chat-bubble {
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #f1f1f1;
+            max-width: 80%;
+            position: relative;
+        }
+
+        .chat-bubble.admin {
+            background-color: #d1f0d1;
+            align-self: flex-end;
+        }
+
+        .chat-bubble.user {
+            background-color: #f1f1f1;
+            align-self: flex-start;
+        }
+
+        .export-button {
+            background-color: green;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 90px;
+        }
+
+        .export-button:hover {
+            background-color: darkgreen;
+        }
+
+        .status-pending {
+            background-color: #f8d7da;
+        }
+
+        .status-in-progress {
+            background-color: #fff3cd;
+        }
+
+        .status-completed {
+            background-color: #d4edda;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="welcome">Welcome, Admin!</div>
+        <div class="date" id="date"></div>
+    </div>
+    <nav class="navbar">
+        <ul>
+            <li><a href="Home-Admin.html">Home</a></li>
+            <li><a href="Inbox-Admin.html">Inbox</a></li>
+            <li><a href="Dashboard-Admin.html">Dashboard</a></li>
+            <li><a href="Inventory-Admin.html">Inventory</a></li>
+            <li class="sign-out"><a href="Login_Page.html">Sign Out</a></li>
+        </ul>
+    </nav>
+    <div class="content">
+        <h2>Inbox</h2>
+        <div class="filter-container">
+            <label for="statusFilter">Filter by Status:</label>
+            <select id="statusFilter">
+                <option value="all">All</option>
+                <option value="pending">Pending</option>
+                <option value="in-progress">In Progress</option>
+                <option value="completed">Completed</option>
+            </select>
+            <label for="dcFilter">Filter by DC:</label>
+            <select id="dcFilter">
+                <option value="all">All</option>
+                <option value="DC1">DC1</option>
+                <option value="DC2">DC2</option>
+                <option value="DC3">DC3</option>
+                <option value="DC4">DC4</option>
+            </select>
+        </div>
+        <table id="requestsTable">
+            <thead>
+                <tr>
+                    <th>Requester Name</th>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Assign To</th>
+                    <th>Importance</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Reply</th>
+                    <th>Response</th>
+                    <th>View History</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic rows will be inserted here -->
+            </tbody>
+        </table>
+        <button class="export-button" id="exportCSV">Export as CSV</button>
+    </div>
+
+    <div class="popup" id="popup">
+        <h3>Reply</h3>
+        <textarea id="replyText"></textarea>
+        <button id="sendReply">Send</button>
+        <button id="closePopup">Close</button>
+    </div>
+
+    <div class="popup" id="historyPopup">
+        <h3>Response History</h3>
+        <div id="historyContent" class="chat-history"></div>
+        <button id="closeHistoryPopup">Close</button>
+    </div>
+
+    <script>
+        function formatDate(date) {
+            if (!date || isNaN(date)) {
+                return 'Invalid Date';
+            }
+            const options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+            return date.toLocaleDateString(undefined, options).replace(',', ',');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateElement = document.getElementById('date');
+            const today = new Date();
+            dateElement.textContent = formatDate(today);
+
+            const requests = JSON.parse(localStorage.getItem('requests')) || [];
+            const tableBody = document.getElementById('requestsTable').querySelector('tbody');
+
+            function renderTable(filteredRequests) {
+                tableBody.innerHTML = ''; // Clear existing rows
+                filteredRequests.forEach((request, index) => {
+                    const row = document.createElement('tr');
+                    const requestDate = request.date ? new Date(request.date) : null;
+                    row.innerHTML = `
+                        <td>${request.requesterName}</td>
+                        <td>${requestDate ? formatDate(requestDate) : 'No Date Provided'}</td>
+                        <td>${request.category}</td>
+                        <td>${request.assignTo}</td>
+                        <td>${request.importance}</td>
+                        <td>${request.description}</td>
+                        <td>
+                            <select class="status-dropdown" data-index="${index}">
+                                <option value="pending" ${request.status === 'pending' ? 'selected' : ''}>Pending</option>
+                                <option value="in-progress" ${request.status === 'in-progress' ? 'selected' : ''}>In Progress</option>
+                                <option value="completed" ${request.status === 'completed' ? 'selected' : ''}>Completed</option>
+                            </select>
+                        </td>
+                        <td><button class="reply-button" data-index="${index}">Reply</button></td>
+                        <td>${request.response}</td>
+                        <td><button class="view-history-button" data-index="${index}">View History</button></td>
+                        <td><button class="delete-button" data-index="${index}">Delete</button></td>
+                    `;
+                    tableBody.appendChild(row);
+                    updateRowStatus(row, request.status); // Apply initial conditional formatting
+                });
+
+                document.querySelectorAll('.status-dropdown').forEach(dropdown => {
+                    dropdown.addEventListener('change', function() {
+                        const index = this.getAttribute('data-index');
+                        const newStatus = this.value;
+                        filteredRequests[index].status = newStatus;
+                        localStorage.setItem('requests', JSON.stringify(requests));
+                        updateRowStatus(this.closest('tr'), newStatus); // Apply conditional formatting
+                    });
+                });
+
+                document.querySelectorAll('.reply-button').forEach(button => {
+                    button.addEventListener('click', function() {
+                        currentReplyIndex = this.getAttribute('data-index');
+                        popup.style.display = 'block';
+                    });
+                });
+
+                document.querySelectorAll('.view-history-button').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = this.getAttribute('data-index');
+                        const request = filteredRequests[index];
+                        const historyContent = document.getElementById('historyContent');
+                        historyContent.innerHTML = ''; // Clear previous content
+                        if (request.history && request.history.length > 0) {
+                            request.history.forEach((entry, i) => {
+                                const chatBubble = document.createElement('div');
+                                chatBubble.className = `chat-bubble ${i % 2 === 0 ? 'admin' : 'user'}`;
+                                chatBubble.textContent = entry.text;
+                                historyContent.appendChild(chatBubble);
+                            });
+                        } else {
+                            historyContent.innerHTML = '<div>No history available.</div>';
+                        }
+                        historyPopup.style.display = 'block';
+                    });
+                });
+
+                document.querySelectorAll('.delete-button').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = this.getAttribute('data-index');
+                        if (confirm('Are you sure you want to delete this request?')) {
+                            requests.splice(index, 1);
+                            localStorage.setItem('requests', JSON.stringify(requests));
+                            filterRequests();  // Re-render table after deletion
+                        }
+                    });
+                });
+            }
+
+            function filterRequests() {
+                const statusFilter = document.getElementById('statusFilter').value;
+                const dcFilter = document.getElementById('dcFilter').value;
+
+                let filtered = requests;
+                if (statusFilter !== 'all') {
+                    filtered = filtered.filter(request => request.status === statusFilter);
+                }
+                if (dcFilter !== 'all') {
+                    filtered = filtered.filter(request => request.assignTo === dcFilter);
+                }
+                renderTable(filtered);
+            }
+
+            document.getElementById('statusFilter').addEventListener('change', filterRequests);
+            document.getElementById('dcFilter').addEventListener('change', filterRequests);
+
+            renderTable(requests);
+
+            const popup = document.getElementById('popup');
+            const replyText = document.getElementById('replyText');
+            const historyPopup = document.getElementById('historyPopup');
+            let currentReplyIndex;
+
+            document.getElementById('closePopup').addEventListener('click', function() {
+                popup.style.display = 'none';
+            });
+
+            document.getElementById('closeHistoryPopup').addEventListener('click', function() {
+                historyPopup.style.display = 'none';
+            });
+
+            document.getElementById('sendReply').addEventListener('click', function() {
+                const request = requests[currentReplyIndex];
+                if (!request.history) {
+                    request.history = [];
+                }
+                const reply = {
+                    text: replyText.value,
+                    date: new Date().toISOString()
+                };
+                request.history.push(reply);
+                request.response = replyText.value;
+                localStorage.setItem('requests', JSON.stringify(requests));
+                popup.style.display = 'none';
+                location.reload();  // Reload the page to update the table
+            });
+
+            document.getElementById('exportCSV').addEventListener('click', function() {
+                let csvContent = "data:text/csv;charset=utf-8,";
+                csvContent += "Requester Name,Date,Category,Assign To,Importance,Description,Status,Response,History\n";
+                requests.forEach(request => {
+                    const history = request.history ? request.history.map(entry => `${entry.text}`).join('; ') : '';
+                    const row = `${request.requesterName},${formatDate(new Date(request.date))},${request.category},${request.assignTo},${request.importance},${request.description},${request.status},${request.response},${history}`;
+                    csvContent += row + "\n";
+                });
+
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "requests.csv");
+                document.body.appendChild(link); // Required for FF
+                link.click();
+                document.body.removeChild(link); // Cleanup
+            });
+        });
+
+        function updateRowStatus(row, status) {
+            row.classList.remove('status-pending', 'status-in-progress', 'status-completed');
+            if (status === 'pending') {
+                row.classList.add('status-pending');
+            } else if (status === 'in-progress') {
+                row.classList.add('status-in-progress');
+            } else if (status === 'completed') {
+                row.classList.add('status-completed');
+            }
+        }
+    </script>
+</body>
+</html>

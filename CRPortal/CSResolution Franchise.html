@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Franchise Resolution</title>
+    <link rel="icon" href="Stan.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header .logo img {
+            width: 70px;
+            height: 35px;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        header nav a {
+            margin-left: 20px;
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+        }
+        header nav a:hover {
+            color: #f05454;
+        }
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .menu-content {
+            display: flex;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            flex-direction: column;
+        }
+        .dropdown-content a {
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+        .dropdown-content a:hover {
+            background-color: #f4f4f9;
+        }
+        .menu-content .dropdown:hover .dropdown-content {
+            display: flex;
+        }
+        @media (max-width: 768px) {
+            header {
+                padding: 20px 40px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .menu-content {
+                display: none;
+                position: absolute;
+                top: 60px; 
+                right: 0;
+                background-color: #fff;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .menu-content a {
+                margin: 10px 0;
+                padding: 10px;
+                border-bottom: 1px solid #f4f4f9;
+            }
+            .menu-content a:last-child {
+                border-bottom: none;
+            }
+            .menu-content.show {
+                display: flex;
+            }
+            .dropdown-content {
+                position: relative;
+            }
+        }
+        @media (max-width: 480px) {
+            header {
+                padding: 20px 20px;
+            }
+            .menu-content {
+                width: 100%;
+                right: 0;
+            }
+        }
+        .iframe-container {
+            position: relative;
+            overflow: hidden;
+            width: calc(100% - 10px); /* Full width minus the left and right padding */
+            margin: 0 5px; /* 5px padding on left and right */
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="NO_Image.png" alt="Logo">
+        </div>
+        <nav>
+            <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+            <div class="menu-content" id="menu-content">
+                <a href="Home.html">Home</a>
+                <div class="dropdown">
+                    <a href="#experience">Administrative</a>
+                    <div class="dropdown-content">
+                        <a href="Attendance.html">Attendance</a>
+                        <a href="Performance Bonus copy.html">Performance Bonus</a>
+                        <a href="Roster.html">Roster</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#experience">Customer Service</a>
+                    <div class="dropdown-content">
+                        <a href="CRDailyPerformance.html">Hourly Performance</a>
+                        <a href="CCBusinessReview.html">CC Business Review</a>
+                        <a href="Quality.html">Quality</a>
+                        <a href="CSAT.html">CSAT</a>
+                        <a href="Performance Ranking.html">Performance Ranking</a>
+                        <a href="NotSchedules.html">Not Schedules/Store Information</a>
+                        <a href="CSResolution.html">Customer Resolution</a>
+                        <a href="CSResolution Corporate.html">Customer Resolution - Corporate</a>
+                        <a href="CSResolution Franchise.html">Customer Resolution - Franchise</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="https://nowoptics.sharepoint.com/sites/CustomerRetention">QA Site</a>
+                </div>
+                <div class="dropdown">
+                    <a href="#experience">Support Team</a>
+                    <div class="dropdown-content">
+                        <a href="STDashboard.html">Support Team Dashboard</a>
+                        <a href="SocialKeyWords.html">GMB Reviews Keywords</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#contact">Order Status</a>
+                    <div class="dropdown-content">
+                        <a href="OrderStatus.html">Orders Dashboard</a>
+                        <a href="HaltomCity.html">Haltom City</a>
+                        <a href="Status Tool.html">Status Tool</a>
+                    </div>
+                </div>
+                <a href="#contact">WorkFlows</a>
+            </div>
+        </nav>
+    </header>
+    <h1>Customer Resolution Franchise</h1>
+    <h4>Description: Summary of Open Customer Resolution Tickets by District and Store.</h4>
+    <div class="iframe-container">
+        <iframe title="BPO Production Productivity" src="https://app.powerbi.com/view?r=eyJrIjoiMTcwZjIwNmItNTJhZC00YWY4LWEyNTYtNzI2MGYwOTFjYWEwIiwidCI6ImUwZDIxY2IzLTg2MGUtNGMwZi05YzIwLWVmMWI3NDY2YTk1YyIsImMiOjJ9&pageName=ReportSection" allowFullScreen="true"></iframe>
+    </div>
+
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            var menuContent = document.getElementById('menu-content');
+            menuContent.classList.toggle('show');
+        });
+    </script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place an Order</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            margin: 0;
+            padding: 20px;
+            color: #f2f2f2;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+            border-bottom: 2px solid #444;
+            color: #f2f2f2;
+        }
+        .welcome-text {
+            font-size: 16px;
+            margin-right: auto;
+        }
+        .top-bar .right button {
+            margin-left: auto;
+            background-color: #f96d00;
+            color: #f2f2f2;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #444;
+        }
+        .header-info {
+            flex: 1;
+            text-align: left;
+        }
+        .header h1 {
+            font-size: 28px;
+            margin: 0;
+            color: #f96d00;
+        }
+        .header img {
+            height: 100px;
+            width: auto;
+            border-radius: 8px;
+        }
+        .contact-info {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #bbb;
+        }
+        .contact-info p {
+            display: flex;
+            align-items: center;
+            justify-content: left;
+        }
+        .contact-info p i {
+            margin-right: 10px;
+        }
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .filters .filter-item {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+        .filters .filter-item:not(:last-child) {
+            margin-right: 20px;
+        }
+        .filters label {
+            margin-right: 10px;
+        }
+        h2 {
+            font-size: 24px;
+            margin: 20px 0 10px;
+            color: #f96d00;
+        }
+        .content {
+            display: flex;
+            justify-content: space-between;
+        }
+        .catalog {
+            width: 50%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-gap: 10px;
+            margin-top: 20px;
+            height: 600px;
+            overflow-y: auto;
+        }
+        .item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background-color: #333;
+            border: 1px solid #444;
+            border-radius: 5px;
+            height: 150px;
+            text-align: center;
+            color: #f2f2f2;
+        }
+        .item button {
+            background-color: #f96d00;
+            color: #f2f2f2;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .item button:hover {
+            background-color: #e65c00;
+        }
+        .order-summary {
+            width: 50%;
+            margin-top: 20px;
+            padding-left: 20px;
+        }
+        .order-summary h3 {
+            margin-bottom: 10px;
+            text-align: center;
+            color: #f96d00;
+        }
+        .order-summary ul {
+            list-style-type: none;
+            padding: 0;
+            width: 100%;
+        }
+        .order-summary li {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        .order-summary .total {
+            font-weight: bold;
+        }
+        .discount-input {
+            width: 50px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #555;
+            margin-left: 10px;
+            background-color: #222;
+            color: #f2f2f2;
+        }
+        .go-back-button, .submit-button, .proceed-button {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+            width: 100%;
+        }
+        .go-back-button button, .submit-button button, .proceed-button button {
+            color: #f2f2f2;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .go-back-button button {
+            background-color: #f96d00;
+        }
+        .go-back-button button:hover {
+            background-color: #e65c00;
+        }
+        .submit-button button {
+            background-color: #28a745;
+        }
+        .submit-button button:hover {
+            background-color: #218838;
+        }
+        .proceed-button button {
+            background-color: #007bff;
+        }
+        .proceed-button button:hover {
+            background-color: #0056b3;
+        }
+        .channel-dropdown, .date-selector, .payment-method {
+            margin: 10px 0;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .modal-content {
+            background-color: #333;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            max-width: 400px;
+            border-radius: 10px;
+            font-family: monospace;
+            color: #f2f2f2;
+        }
+        .modal-header, .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-footer {
+            margin-top: 20px;
+        }
+        .modal-footer button {
+            margin-left: 10px;
+            background-color: #f96d00;
+        }
+        .modal-footer button:hover {
+            background-color: #e65c00;
+        }
+        .receipt-line {
+            border-bottom: 1px dashed #555;
+            margin: 5px 0;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-right {
+            text-align: right;
+        }
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            .catalog, .order-summary {
+                width: 100%;
+            }
+            .catalog {
+                margin-top: 10px;
+            }
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header-info {
+                margin-bottom: 10px;
+            }
+        }
+        @media (max-width: 480px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .filters {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .filters .filter-item {
+                margin-bottom: 10px;
+                margin-right: 0;
+            }
+            .filters label {
+                margin-bottom: 5px;
+            }
+            .item {
+                height: auto;
+                padding: 20px;
+            }
+            .go-back-button, .submit-button, .proceed-button {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="welcome-text" id="welcomeText">Welcome, User! – </div>
+    <div class="right">
+        <button onclick="location.href='Login_Business.html'">Sign-Out</button>
+    </div>
+</div>
+
+<div class="header">
+    <div class="header-info">
+        <h1>SB Spark Nicaragua</h1>
+        <div class="contact-info">
+            <p><i class="fas fa-map-pin"></i> KM 10.5 Carretera Masaya</p>
+            <p><i class="fab fa-whatsapp"></i> (505) 7833-6795</p>
+            <p><i class="fab fa-instagram"></i> Instagram: SBSpark.ni</p>
+        </div>
+    </div>
+    <img src="Picture1.png" alt="SBSpark Zone">
+</div>
+
+<div class="filters">
+    <div class="filter-item">
+        <label for="channel">Select Channel:</label>
+        <select id="channel">
+            <option value="store">Store</option>
+            <option value="facebook_instagram">Facebook/Instagram</option>
+            <option value="whatsapp">Whatsapp</option>
+            <option value="walk_in">Walk-in</option>
+        </select>
+    </div>
+    <div class="filter-item">
+        <label for="orderDate">Select Date:</label>
+        <input type="date" id="orderDate">
+    </div>
+    <div class="filter-item">
+        <label for="paymentMethod">Payment Method:</label>
+        <select id="paymentMethod">
+            <option value="cash">Cash</option>
+            <option value="credit_card">Credit Card</option>
+        </select>
+    </div>
+</div>
+
+<h2>Place an Order</h2>
+
+<div class="content">
+    <div class="catalog" id="catalog">
+        <!-- Items will be populated dynamically here -->
+        <div class="item">
+            <span>Fajas 1 - $30.00</span>
+            <button onclick="addToCart('Fajas 1', 30.00)">Add to Cart</button>
+        </div>
+        <div class="item">
+            <span>Fajas 2 - $35.00</span>
+            <button onclick="addToCart('Fajas 2', 35.00)">Add to Cart</button>
+        </div>
+        <div class="item">
+            <span>Fajas 3 - $40.00</span>
+            <button onclick="addToCart('Fajas 3', 40.00)">Add to Cart</button>
+        </div>
+    </div>
+
+    <div class="order-summary">
+        <h3>Order Summary</h3>
+        <ul id="orderList"></ul>
+        <div>
+            <label for="discount">Discount %:</label>
+            <input type="number" id="discount" class="discount-input" value="0" oninput="updateOrderSummary()">
+        </div>
+        <p id="additionalInfo"></p>
+        <p class="total" id="total"></p>
+        <div class="submit-button">
+            <button onclick="previewOrder()">Preview</button>
+        </div>
+        <div class="proceed-button">
+            <button onclick="showPaymentPopup()">Pay <span id="payAmount"></span></button>
+        </div>
+    </div>
+</div>
+
+<div class="go-back-button">
+    <button onclick="history.back()">Go Back</button>
+</div>
+
+<!-- Modal Structure -->
+<div id="receiptModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Order Receipt</h2>
+            <span onclick="closeModal()" style="cursor:pointer">&times;</span>
+        </div>
+        <div id="receiptContent"></div>
+        <div class="modal-footer">
+            <button onclick="printReceipt()">Print</button>
+            <button onclick="sendEmail()">Send via Email</button>
+        </div>
+    </div>
+</div>
+
+<!-- Payment Modal Structure -->
+<div id="paymentModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Complete Payment</h2>
+            <span onclick="closePaymentModal()" style="cursor:pointer">&times;</span>
+        </div>
+        <div id="paymentContent">
+            <p>Total Amount Due: $<span id="amountDue"></span></p>
+            <label for="paymentMethod">Payment Method:</label>
+            <select id="paymentMethodModal" onchange="toggleAmountCollected()">
+                <option value="cash">Cash</option>
+                <option value="credit_card">Credit Card</option>
+            </select>
+            <label for="amountCollected" id="amountCollectedLabel">Amount Collected:</label>
+            <input type="number" id="amountCollected" oninput="calculateChange()">
+            <p>Change: $<span id="changeAmount">0.00</span></p>
+            <div class="modal-footer">
+                <button onclick="processPayment()">Process</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let cart = [];
+
+    function addToCart(item, price) {
+        cart.push({ item, price });
+        updateOrderSummary();
+    }
+
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        updateOrderSummary();
+    }
+
+    function updateOrderSummary() {
+        const orderList = document.getElementById('orderList');
+        orderList.innerHTML = '';
+        let subtotal = 0;
+        cart.forEach((cartItem, index) => {
+            subtotal += cartItem.price;
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `${cartItem.item} - $${cartItem.price.toFixed(2)} <button onclick="removeFromCart(${index})">Remove</button>`;
+            orderList.appendChild(listItem);
+        });
+        const discount = parseFloat(document.getElementById('discount').value) || 0;
+        const discountedAmount = subtotal * (discount / 100);
+        const tax = (subtotal - discountedAmount) * 0.15;
+        const total = subtotal - discountedAmount + tax;
+
+        const selectedChannel = document.getElementById('channel').value;
+        const orderDate = document.getElementById('orderDate').value;
+        const paymentMethod = document.getElementById('paymentMethod').value;
+        const additionalInfo = `
+            Channel: ${selectedChannel} <br>
+            Date: ${orderDate} <br>
+            Payment Method: ${paymentMethod}
+        `;
+        document.getElementById('additionalInfo').innerHTML = additionalInfo;
+
+        document.getElementById('total').innerHTML = `Subtotal: $${subtotal.toFixed(2)} | Discount: $${discountedAmount.toFixed(2)} | Tax (15%): $${tax.toFixed(2)} | Total: $${total.toFixed(2)}`;
+        document.getElementById('payAmount').innerText = `$${total.toFixed(2)}`;
+        document.getElementById('amountDue').innerText = total.toFixed(2);
+    }
+
+    function updateDateTime() {
+        const welcomeText = document.getElementById('welcomeText');
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        welcomeText.textContent += now.toLocaleDateString('en-US', options);
+
+        const dateInput = document.getElementById('orderDate');
+        dateInput.value = now.toISOString().split('T')[0];
+    }
+
+    function formatAMPM(date) {
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? 12 : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        const strTime = hours + ':' + minutes + ' ' + ampm;
+        return strTime;
+    }
+
+    function previewOrder() {
+        const now = new Date();
+        const receiptItems = cart.map(item => `<div>${item.item} - $${item.price.toFixed(2)}</div>`).join('');
+        const receiptContent = `
+            <div class="text-center">
+                <img src="Picture1.png" alt="SBSpark Zone" style="height: 50px;"><br>
+                SBSpark Zone<br>
+                KM 10.5 Carretera Masaya<br>
+                Phone: (505) 7833-6795<br>
+                Instagram: SBSpark.nic<br>
+                Date: ${now.toLocaleDateString()} Time: ${formatAMPM(now)}<br>
+                <div class="receipt-line"></div>
+            </div>
+            ${receiptItems}
+            <div class="receipt-line"></div>
+            ${document.getElementById('total').innerHTML}
+            <div class="receipt-line"></div>
+            <div class="text-center">
+                <p>Thank you for your order!</p>
+                <p>Follow us on Instagram/SBSpark.nic</p>
+            </div>
+        `;
+        document.getElementById('receiptContent').innerHTML = receiptContent;
+        document.getElementById('receiptModal').style.display = 'block';
+    }
+
+    function showPaymentPopup() {
+        document.getElementById('paymentModal').style.display = 'block';
+        toggleAmountCollected(); // Initial call to set the correct visibility
+    }
+
+    function closeModal() {
+        document.getElementById('receiptModal').style.display = 'none';
+    }
+
+    function closePaymentModal() {
+        document.getElementById('paymentModal').style.display = 'none';
+    }
+
+    function calculateChange() {
+        const amountDue = parseFloat(document.getElementById('amountDue').innerText);
+        const amountCollected = parseFloat(document.getElementById('amountCollected').value);
+        const change = amountCollected - amountDue;
+        document.getElementById('changeAmount').innerText = change.toFixed(2);
+    }
+
+    function processPayment() {
+        const billNumber = generateSequenceNumber('billNumber', 'FAC', 4);
+        const orderNumber = generateSequenceNumber('orderNumber', 'ORD', 4);
+
+        // Update inventory
+        cart.forEach(cartItem => {
+            updateInventory(cartItem.item, cartItem.price);
+        });
+
+        saveSalesData(billNumber, orderNumber);
+
+        const now = new Date();
+        const receiptItems = cart.map(item => `<div>${item.item} - $${item.price.toFixed(2)}</div>`).join('');
+        const receiptContent = `
+            <div class="text-center">
+                <img src="Picture1.png" alt="SBSpark Zone" style="height: 50px;"><br>
+                SB Spark Zone<br>
+                KM 10.5 Carretera Masaya<br>
+                Phone: (505) 7653-4446<br>
+                Instagram: SBSPark.nic<br>
+                Date: ${now.toLocaleDateString()} Time: ${formatAMPM(now)}<br>
+                Bill Number: ${billNumber} <br>
+                Order Number: ${orderNumber} <br>
+                <div class="receipt-line"></div>
+            </div>
+            ${receiptItems}
+            <div class="receipt-line"></div>
+            ${document.getElementById('total').innerHTML}
+            <div class="receipt-line"></div>
+            <div class="text-center">
+                <p>Thank you for your order!</p>
+                <p>Follow us on Instagram/SBSpark.nic</p>
+            </div>
+        `;
+        document.getElementById('receiptContent').innerHTML = receiptContent;
+        document.getElementById('receiptModal').style.display = 'block';
+
+        alert('Sale completed.');
+        closePaymentModal();
+        resetOrderSummary(); // Reset the order summary
+        loadCatalog(); // Refresh the catalog to reflect updated inventory
+    }
+
+    function updateInventory(productName, price) {
+        let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+        inventory = inventory.map(item => {
+            if (item.productName === productName) {
+                item.unitsSold += 1;
+                item.inStockQuantity -= 1;
+            }
+            return item;
+        });
+        localStorage.setItem('inventory', JSON.stringify(inventory));
+    }
+
+    function saveSalesData(billNumber, orderNumber) {
+        const salesData = JSON.parse(localStorage.getItem('salesData')) || [];
+        const total = parseFloat(document.getElementById('amountDue').innerText);
+        const discount = parseFloat(document.getElementById('discount').value) || 0;
+        const amountCollected = parseFloat(document.getElementById('amountCollected').value);
+        const change = parseFloat(document.getElementById('changeAmount').innerText);
+        const now = new Date();
+        const sale = {
+            date: now.toLocaleDateString(),
+            billNumber,
+            orderNumber,
+            items: cart.map(item => ({
+                code: item.item.split(' - ')[0], // Assuming the product code is the first part of the item string
+                name: item.item,
+                price: item.price
+            })),
+            discount,
+            total,
+            paymentMethod: document.getElementById('paymentMethodModal').value,
+            channel: document.getElementById('channel').value,
+        };
+        salesData.push(sale);
+        localStorage.setItem('salesData', JSON.stringify(salesData));
+    }
+
+    function resetOrderSummary() {
+        cart = [];
+        document.getElementById('discount').value = 0;
+        document.getElementById('orderList').innerHTML = '';
+        document.getElementById('additionalInfo').innerHTML = '';
+        document.getElementById('total').innerHTML = '';
+        document.getElementById('payAmount').innerText = '$0.00';
+        document.getElementById('amountDue').innerText = '0.00';
+    }
+
+    function printReceipt() {
+        const printContents = document.getElementById('receiptContent').innerHTML;
+        const originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        location.reload();
+    }
+
+    function sendEmail() {
+        alert('Email feature is not implemented yet.');
+        // Additional logic for sending the email can be added here
+    }
+
+    function toggleAmountCollected() {
+        const paymentMethod = document.getElementById('paymentMethodModal').value;
+        const amountCollectedLabel = document.getElementById('amountCollectedLabel');
+        const amountCollectedInput = document.getElementById('amountCollected');
+        if (paymentMethod === 'credit_card') {
+            amountCollectedLabel.style.display = 'none';
+            amountCollectedInput.style.display = 'none';
+        } else {
+            amountCollectedLabel.style.display = 'inline-block';
+            amountCollectedInput.style.display = 'inline-block';
+        }
+    }
+
+    function generateSequenceNumber(key, prefix, length) {
+        let currentNumber = parseInt(localStorage.getItem(key)) || 0;
+        currentNumber++;
+        localStorage.setItem(key, currentNumber);
+        return prefix + currentNumber.toString().padStart(length, '0');
+    }
+
+    function loadCatalog() {
+        const inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+        const catalog = document.getElementById('catalog');
+        catalog.innerHTML = ''; // Clear the catalog
+        inventory.forEach(item => {
+            if (item.inStockQuantity > 0) {
+                const catalogItem = document.createElement('div');
+                catalogItem.className = 'item';
+                catalogItem.innerHTML = `<span>${item.productName} - $${item.price.toFixed(2)}</span><button onclick="addToCart('${item.productName}', ${item.price})">Add to Cart</button>`;
+                catalog.appendChild(catalogItem);
+            }
+        });
+    }
+
+    updateDateTime();
+    loadCatalog();
+
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('receiptModal')) {
+            closeModal();
+        } else if (event.target == document.getElementById('paymentModal')) {
+            closePaymentModal();
+        }
+    }
+</script>
+
+</body>
+</html>
+
+
+
